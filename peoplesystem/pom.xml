@@ -9,6 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+
     <groupId>com.tlm</groupId>
     <artifactId>peoplesystem</artifactId>
     <version>1.0-SNAPSHOT</version>
