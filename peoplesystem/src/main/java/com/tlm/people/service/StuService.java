@@ -1,7 +1,5 @@
 package com.tlm.people.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tlm.people.entity.PageRequest;
 import com.tlm.people.entity.Stu;
 
 /**
@@ -20,14 +18,6 @@ public interface StuService {
      */
     Stu queryById(Long id);
 
-//    /**
-//     * 分页查询
-//     *
-//     * @param stu 筛选条件
-//     * @param pageRequest      分页对象
-//     * @return 查询结果
-//     */
-//    Page<Stu> queryByPage(Stu stu, PageRequest pageRequest);
 
     /**
      * 新增数据

@@ -1,11 +1,12 @@
 package com.tlm.people.controller;
 
-import com.tlm.people.entity.PageRequest;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import com.tlm.people.entity.Stu;
 import com.tlm.people.service.StuService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.jvm.hotspot.debugger.Page;
 
 import javax.annotation.Resource;
 
@@ -24,17 +25,7 @@ public class StuController {
     @Resource
     private StuService stuService;
 
-    /**
-     * 分页查询
-     *
-     * @param stu 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    @GetMapping
-    public ResponseEntity<Page<Stu>> queryByPage(Stu stu, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.stuService.queryByPage(stu, pageRequest));
-    }
+
 
     /**
      * 通过主键查询单条数据
