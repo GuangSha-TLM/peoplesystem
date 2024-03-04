@@ -1,3 +1,12 @@
+/$$
+ $ @Author: tianleiyu 
+ $ @Date: 2024-03-04 16:49:15
+ $ @LastEditTime: 2024-03-04 19:21:52
+ $ @LastEditors: tianleiyu
+ $ @Description: 
+ $ @FilePath: /people/src/router/index.js
+ $ @可以输入预定的版权声明、个性签名、空行等
+ $/
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
@@ -10,6 +19,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  
   {
     path: '/about',
     name: 'about',
