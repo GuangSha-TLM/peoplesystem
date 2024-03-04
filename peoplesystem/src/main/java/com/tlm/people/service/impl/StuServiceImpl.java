@@ -1,12 +1,11 @@
 package com.tlm.people.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tlm.people.entity.PageRequest;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.dao.StuDao;
 import com.tlm.people.service.StuService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 
@@ -32,18 +31,18 @@ public class StuServiceImpl implements StuService {
         return this.stuDao.queryById(id);
     }
 
-    /**
-     * 分页查询
-     *
-     * @param stu 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    @Override
-    public Page<Stu> queryByPage(Stu stu, PageRequest pageRequest) {
-        long total = this.stuDao.count(stu);
-        return new PageImpl<>(this.stuDao.queryAllByLimit(stu, pageRequest), pageRequest, total);
-    }
+//    /**
+//     * 分页查询
+//     *
+//     * @param stu 筛选条件
+//     * @param pageRequest      分页对象
+//     * @return 查询结果
+//     */
+//    @Override
+//    public Page<Stu> queryByPage(Stu stu, PageRequest pageRequest) {
+//        long total = this.stuDao.count(stu);
+//        return new PageImpl<>(this.stuDao.queryAllByLimit(stu, pageRequest), pageRequest, total);
+//    }
 
     /**
      * 新增数据

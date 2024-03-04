@@ -2,7 +2,8 @@ package com.tlm.people.dao;
 
 import com.tlm.people.entity.Stu;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
+
+import java.awt.print.Pageable;
 import java.util.List;
 
 /**
