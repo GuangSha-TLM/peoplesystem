@@ -24,17 +24,17 @@ public class StuController {
     @Resource
     private StuService stuService;
 
-//    /**
-//     * 分页查询
-//     *
-//     * @param stu 筛选条件
-//     * @param pageRequest      分页对象
-//     * @return 查询结果
-//     */
-//    @GetMapping
-//    public ResponseEntity<Page<Stu>> queryByPage(Stu stu, PageRequest pageRequest) {
-//        return ResponseEntity.ok(this.stuService.queryByPage(stu, pageRequest));
-//    }
+    /**
+     * 分页查询
+     *
+     * @param stu 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @GetMapping
+    public ResponseEntity<Page<Stu>> queryByPage(Stu stu, PageRequest pageRequest) {
+        return ResponseEntity.ok(this.stuService.queryByPage(stu, pageRequest));
+    }
 
     /**
      * 通过主键查询单条数据
