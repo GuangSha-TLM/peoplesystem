@@ -1,5 +1,6 @@
 package com.tlm.people.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tlm.people.entity.User;
 import com.tlm.people.entity.PageRequest;
 
@@ -19,14 +20,14 @@ public interface UserService {
      */
     User queryById(Long id);
 
-    /**
-     * 分页查询
-     *
-     * @param user 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    Page<User> queryByPage(User user, PageRequest pageRequest);
+//    /**
+//     * 分页查询
+//     *
+//     * @param user 筛选条件
+//     * @param pageRequest      分页对象
+//     * @return 查询结果
+//     */
+//    Page<User> queryByPage(User user, PageRequest pageRequest);
 
     /**
      * 新增数据
