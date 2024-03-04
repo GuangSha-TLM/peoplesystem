@@ -1,6 +1,7 @@
 package com.tlm.people.dao;
 
 import com.tlm.people.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.awt.print.Pageable;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2024-03-04 17:48:22
  */
+@Mapper
 public interface UserDao {
 
     /**
