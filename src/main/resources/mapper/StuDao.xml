@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlm.people.dao.StuDao">
+
+    <resultMap type="com.tlm.people.entity.Stu" id="StuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="stuId" column="stu_id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="StuMap">
+        select
+idstu_idstatuscreatetimeupdatetime
+        from stu
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="StuMap">
+        select
+idstu_idstatuscreatetimeupdatetime
+        from stu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stuId != null">
+                and stu_id = #{stuId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from stu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stuId != null">
+                and stu_id = #{stuId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into stu(stu_idstatuscreatetimeupdatetime)
+        values (#{stuId}#{status}#{createtime}#{updatetime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into stu(stu_idstatuscreatetimeupdatetime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.stuId}#{entity.status}#{entity.createtime}#{entity.updatetime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into stu(stu_idstatuscreatetimeupdatetime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stuId}#{entity.status}#{entity.createtime}#{entity.updatetime})
+        </foreach>
+        on duplicate key update
+stu_id = values(stu_id)status = values(status)createtime = values(createtime)updatetime = values(updatetime)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update stu
+        <set>
+            <if test="stuId != null">
+                stu_id = #{stuId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from stu where id = #{id}
+    </delete>
+
+</mapper>
+
