@@ -1,7 +1,11 @@
 package com.tlm.people.controller;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.tlm.people.entity.User;
+import com.tlm.people.entity.bo.UserLoginBo;
+import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,39 @@ public class UserController {
      */
     @Resource
     private UserService userService;
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  用户注册
+     * @param user
+     * @return String.class
+     */
+    @PostMapping("/userReg")
+    @ApiOperation("用户注册")
+    public String userReg(@RequestBody User user){
+        if(user != null){
+            JSONArray.toJSONString(new ResponseVo("参数为null",null,"0x455"));
+        }
+
+        return JSONArray.toJSONString(userService.userReg(user));
+    }
+
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  用户登录
+     * @param userLoginBo
+     * @return
+     */
+    @PostMapping("/Login")
+    @ApiOperation("用户登录")
+    public String userLogin(@RequestBody UserLoginBo userLoginBo){
+        if(userLoginBo == null){
+            JSONArray.toJSONString(new ResponseVo("参数为null",null,"0x455"));
+        }
+
+        return JSONArray.toJSONString(userService.userLogin(userLoginBo));
+    }
 
 
 

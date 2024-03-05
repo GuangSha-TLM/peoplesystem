@@ -2,6 +2,8 @@ package com.tlm.people.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tlm.people.entity.User;
+import com.tlm.people.entity.bo.UserLoginBo;
+import com.tlm.people.entity.vo.ResponseVo;
 
 /**
  * (User)表服务接口
@@ -10,6 +12,23 @@ import com.tlm.people.entity.User;
  * @since 2024-03-04 17:48:25
  */
 public interface UserService {
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  用户登录
+     * @param userLoginBo
+     * @return ResponseVo.class
+     */
+    ResponseVo userLogin(UserLoginBo userLoginBo);
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  用户注册
+     * @param user
+     * @return ResponseVo.class
+     */
+    ResponseVo userReg(User user);
+
 
     /**
      * 通过ID查询单条数据

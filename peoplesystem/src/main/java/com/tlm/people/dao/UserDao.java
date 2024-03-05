@@ -16,6 +16,10 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
+
+    void updateLoginTime(User user);
+
+
     /**
      * 通过ID查询单条数据
      *
@@ -58,13 +62,7 @@ public interface UserDao {
      */
     int insertOrUpdateBatch(@Param("entities") List<User> entities);
 
-    /**
-     * 修改数据
-     *
-     * @param user 实例对象
-     * @return 影响行数
-     */
-    int update(User user);
+
 
     /**
      * 通过主键删除数据
@@ -74,5 +72,22 @@ public interface UserDao {
      */
     int deleteById(Long id);
 
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  查找用户名
+     * @param username
+     * @return
+     */
+    User findByUsername(String username);
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  注册用户
+     * @param user
+     * @return
+     */
+    Long userReg(User user);
+
+    void update(User user);
 }
 
