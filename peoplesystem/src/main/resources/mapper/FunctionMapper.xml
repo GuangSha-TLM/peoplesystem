@@ -17,8 +17,8 @@
             stu
             (stu_id,status)
         VALUES
-        <foreach collection="cachedDataList" item="item" separator=",">
-            (#{item.stuId}, #{item.status})
+        <foreach collection="list" item="cachedDataList" separator=",">
+            (#{cachedDataList.stuId}, #{cachedDataList.status})
         </foreach>
     </insert>
 
