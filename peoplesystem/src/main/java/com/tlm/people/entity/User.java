@@ -25,7 +25,7 @@ public class User implements Serializable {
     /**
      * 创建人
      */
-    private Integer createBy;
+    private String createBy;
 
     /**
      *  创建时间
@@ -35,7 +35,7 @@ public class User implements Serializable {
     /**
      *  更新人
      */
-    private Integer updateBy;
+    private String updateBy;
 
     /**
      *  更新时间
@@ -49,8 +49,17 @@ public class User implements Serializable {
 
     public User() {
     }
+    public User( String username, String password, String createBy, Date createTime, String updateBy, Date updateTime, Integer delFlag) {
+        this.username = username;
+        this.password = password;
+        this.createBy = createBy;
+        this.createTime = createTime;
+        this.updateBy = updateBy;
+        this.updateTime = updateTime;
+        this.delFlag = delFlag;
+    }
 
-    public User(Long id, String username, String password, Integer createBy, Date createTime, Integer updateBy, Date updateTime, Integer delFlag) {
+    public User(Long id, String username, String password, String createBy, Date createTime, String updateBy, Date updateTime, Integer delFlag) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -60,6 +69,7 @@ public class User implements Serializable {
         this.updateTime = updateTime;
         this.delFlag = delFlag;
     }
+
 
     public Long getId() {
         return id;
@@ -85,11 +95,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Integer getCreateBy() {
+    public String getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(Integer createBy) {
+    public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
@@ -101,11 +111,11 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Integer updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 
@@ -131,9 +141,9 @@ public class User implements Serializable {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", createBy=" + createBy +
+                ", createBy='" + createBy + '\'' +
                 ", createTime=" + createTime +
-                ", updateBy=" + updateBy +
+                ", updateBy='" + updateBy + '\'' +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 '}';

@@ -1,6 +1,5 @@
 package com.tlm.people.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tlm.people.entity.User;
 import com.tlm.people.entity.bo.UserLoginBo;
 import com.tlm.people.entity.vo.ResponseVo;
@@ -22,12 +21,12 @@ public interface UserService {
     ResponseVo userLogin(UserLoginBo userLoginBo);
 
     /**
-     *  @Auther Oh… Yeah!!! 2024-3-5
-     *  用户注册
-     * @param user
+     * @param userLoginBo
      * @return ResponseVo.class
+     * @Auther Oh… Yeah!!! 2024-3-5
+     * 用户注册
      */
-    ResponseVo userReg(User user);
+    ResponseVo userReg(UserLoginBo userLoginBo);
 
 
     /**

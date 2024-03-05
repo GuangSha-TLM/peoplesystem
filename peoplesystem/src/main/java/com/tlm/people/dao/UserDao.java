@@ -1,6 +1,7 @@
 package com.tlm.people.dao;
 
 import com.tlm.people.entity.User;
+import com.tlm.people.entity.bo.UserLoginBo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,8 +18,24 @@ import java.util.List;
 public interface UserDao {
 
 
-    void updateLoginTime(User user);
+    public void updateLoginTime(User user);
 
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  查找用户名
+     * @param username
+     * @return
+     */
+    public User findByUsername(String username);
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *  注册用户
+     * @param user
+     * @return
+     */
+    public Long userReg(User user);
 
     /**
      * 通过ID查询单条数据
@@ -72,21 +89,6 @@ public interface UserDao {
      */
     int deleteById(Long id);
 
-    /**
-     *  @Auther Oh… Yeah!!! 2024-3-5
-     *  查找用户名
-     * @param username
-     * @return
-     */
-    User findByUsername(String username);
-
-    /**
-     *  @Auther Oh… Yeah!!! 2024-3-5
-     *  注册用户
-     * @param user
-     * @return
-     */
-    Long userReg(User user);
 
     void update(User user);
 }

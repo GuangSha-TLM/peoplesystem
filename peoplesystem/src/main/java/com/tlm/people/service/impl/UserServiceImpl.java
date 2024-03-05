@@ -1,8 +1,7 @@
 package com.tlm.people.service.impl;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tlm.people.entity.User;
 import com.tlm.people.dao.UserDao;
+import com.tlm.people.entity.User;
 import com.tlm.people.entity.bo.UserLoginBo;
 import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.UserService;
@@ -10,7 +9,6 @@ import com.tlm.people.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -19,25 +17,33 @@ import java.util.Date;
  * @author makejava
  * @since 2024-03-04 17:48:25
  */
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
     /**
-     *  @Auther Oh… Yeah!!! 2024-3-5
-     *  用户注册
-     * @param user
+     * @param userLoginBo
      * @return ResponseVo.class
+     * @Auther Oh… Yeah!!! 2024-3-5
+     * 用户注册
      */
-    public ResponseVo userReg(User user){
-        User username = userDao.findByUsername(user.getUsername());
+    public ResponseVo userReg(UserLoginBo userLoginBo){
+        User user = userDao.findByUsername(userLoginBo.getUsername());
 
-        if(username != null){
+        if(user != null){
             return new ResponseVo("该用户名已存在",null,"0x202");
         }
 
-        Long aLong = userDao.userReg(user);
+        Long aLong = userDao.userReg(new User(
+                userLoginBo.getUsername(),
+                userLoginBo.getPassword(),
+                userLoginBo.getUsername(),
+                new Date(),
+                userLoginBo.getUsername(),
+                new Date(),
+                0
+        ));
 
         if(aLong.longValue() == 0L){
             return new ResponseVo("注册失败",null,"0x500");

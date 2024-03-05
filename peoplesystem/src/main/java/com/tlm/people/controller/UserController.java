@@ -29,17 +29,17 @@ public class UserController {
     /**
      *  @Auther Oh… Yeah!!! 2024-3-5
      *  用户注册
-     * @param user
+     * @param userLoginBo
      * @return String.class
      */
     @PostMapping("/userReg")
     @ApiOperation("用户注册")
-    public String userReg(@RequestBody User user){
-        if(user != null){
+    public String userReg(@RequestBody UserLoginBo userLoginBo){
+        if(userLoginBo != null){
             JSONArray.toJSONString(new ResponseVo("参数为null",null,"0x455"));
         }
 
-        return JSONArray.toJSONString(userService.userReg(user));
+        return JSONArray.toJSONString(userService.userReg(userLoginBo));
     }
 
 
