@@ -17,19 +17,26 @@ public class Stu implements Serializable {
      *  学号/工号
      */
     private Long stuId;
-/**
+
+    /**
+     * 学生姓名
+     */
+    private String stuName;
+
+    /**
      * 状态（0：未选， 1：被选）
      */
     private Integer status;
-/**
-     *  创建时间
-     */
-    private Date createtime;
-/**
-     *  修改时间
-     */
-    private Date updatetime;
 
+    public Stu() {
+    }
+
+    public Stu(Long id, Long stuId, String stuName, Integer status) {
+        this.id = id;
+        this.stuId = stuId;
+        this.stuName = stuName;
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -47,6 +54,14 @@ public class Stu implements Serializable {
         this.stuId = stuId;
     }
 
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -55,21 +70,14 @@ public class Stu implements Serializable {
         this.status = status;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    @Override
+    public String toString() {
+        return "Stu{" +
+                "id=" + id +
+                ", stuId=" + stuId +
+                ", stuName='" + stuName + '\'' +
+                ", status=" + status +
+                '}';
     }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
 }
 

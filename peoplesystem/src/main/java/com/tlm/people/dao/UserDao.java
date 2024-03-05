@@ -1,5 +1,6 @@
 package com.tlm.people.dao;
 
+import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.User;
 import com.tlm.people.entity.bo.UserLoginBo;
 import org.apache.ibatis.annotations.Mapper;
@@ -91,5 +92,11 @@ public interface UserDao {
 
 
     void update(User user);
+
+    /**
+     * 获取需要摇的学生
+     * @return
+     */
+    public List<Stu> getStudents();
 }
 

@@ -34,4 +34,14 @@
                 username=#{username}
             limit 1
     </select>
+
+    <!--找学生-->
+    <select id="getStudents" resultType="com.tlm.people.entity.Stu">
+        select
+            *
+        from
+            student
+    </select>
+
+
 </mapper>

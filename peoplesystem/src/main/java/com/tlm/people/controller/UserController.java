@@ -5,7 +5,9 @@ import com.tlm.people.entity.User;
 import com.tlm.people.entity.bo.UserLoginBo;
 import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.UserService;
+import com.tlm.people.service.impl.FunctionServiceImpl;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,20 @@ public class UserController {
      */
     @Resource
     private UserService userService;
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *      摇人
+     * @return String.class
+     */
+    @PostMapping("/userShake")
+    @ApiOperation("用户摇人")
+    public String userShakePerson(@RequestParam("number") Integer number){
+
+        return JSONArray.toJSONString(userService.userShake(number));
+    }
+
+
 
     /**
      *  @Auther Oh… Yeah!!! 2024-3-5

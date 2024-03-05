@@ -62,4 +62,10 @@ public interface UserService {
      */
     boolean deleteById(Long id);
 
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *      摇人
+     * @return ResponseVo.class
+     */
+    ResponseVo userShake(Integer number);
 }

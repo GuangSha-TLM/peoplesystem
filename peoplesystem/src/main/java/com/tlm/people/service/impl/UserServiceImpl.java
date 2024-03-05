@@ -1,6 +1,7 @@
 package com.tlm.people.service.impl;
 
 import com.tlm.people.dao.UserDao;
+import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.User;
 import com.tlm.people.entity.bo.UserLoginBo;
 import com.tlm.people.entity.vo.ResponseVo;
@@ -9,7 +10,9 @@ import com.tlm.people.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (User)表服务实现类
@@ -21,6 +24,26 @@ import java.util.Date;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private FunctionServiceImpl functionService;
+
+    /**
+     *  @Auther Oh… Yeah!!! 2024-3-5
+     *      摇人
+     * @return ResponseVo.class
+     */
+    @Override
+    public ResponseVo userShake(Integer number) {
+
+        //functionService.importData();
+
+        List<Stu> students =  userDao.getStudents();
+
+        Collections.shuffle(students);
+//        System.out.println(students);
+//        System.out.println(students.subList(0, number));
+        return new ResponseVo("一支穿云箭，千军万马来相见",students.subList(0, number),"0x200");
+    }
 
     /**
      * @param userLoginBo
@@ -125,4 +148,6 @@ public class UserServiceImpl implements UserService {
     public boolean deleteById(Long id) {
         return this.userDao.deleteById(id) > 0;
     }
+
+
 }
