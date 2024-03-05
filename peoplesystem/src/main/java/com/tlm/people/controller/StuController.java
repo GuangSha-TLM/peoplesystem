@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * @since 2024-03-04 17:47:18
  */
 @RestController
-@RequestMapping("stu")
+@RequestMapping("/tlm/people/stu")
 public class StuController {
     /**
      * 服务对象

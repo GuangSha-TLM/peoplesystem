@@ -12,6 +12,16 @@ spring:
 server:
   port: 8008
 
+knife4j:
+  # 开启增强配置
+  enable: true
+basic:
+  enable: true
+  # Basic认证用户名
+  username: test
+  # Basic认证密码
+  password: 123
+
 
 # 选择api项目下的resouces路径下的user文件夹
 # filePath: "/Users/yangyida/Documents/project/complaint_system/web-server/src/main/resources/img/user/"

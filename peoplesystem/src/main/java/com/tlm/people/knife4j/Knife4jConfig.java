@@ -43,8 +43,8 @@ public class Knife4jConfig {
                 .apiInfo(adminApiInfo())
                 .select()
                 //只显示admin路径下的页面
-                .apis(RequestHandlerSelectors.basePackage("com.tlm"))
-                .paths(PathSelectors.regex("/admin/.*"))
+                .apis(RequestHandlerSelectors.basePackage("com.tlm.people"))
+                .paths(PathSelectors.regex("/tlm/people/.*"))
                 .build()
                 .globalOperationParameters(pars);
         return adminApi;
