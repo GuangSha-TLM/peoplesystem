@@ -7,6 +7,7 @@ import com.tlm.people.entity.bo.UserLoginBo;
 import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.UserService;
 import com.tlm.people.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +21,7 @@ import java.util.Date;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
-    @Resource
+    @Autowired
     private UserDao userDao;
 
     /**

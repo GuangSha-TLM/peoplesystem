@@ -25,11 +25,11 @@
 
 
     <!-- 用户名查找用户 -->
-<select id="findByUsername" resultType="com.tlm.people.entity.User" parameterType="java.lang.String">
-     select *
-        from user
-        where
-            username=#{username}
-        limit 1
+    <select id="findByUsername" resultType="com.tlm.people.entity.User" >
+         select *
+            from user
+            where
+                username=#{username}
+            limit 1
     </select>
 </mapper>
