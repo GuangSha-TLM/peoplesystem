@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tlm.people.entity.User;
 import com.tlm.people.dao.UserDao;
 import com.tlm.people.service.UserService;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
