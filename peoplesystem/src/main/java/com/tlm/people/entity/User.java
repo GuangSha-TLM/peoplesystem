@@ -21,19 +21,45 @@ public class User implements Serializable {
      * 密码
      */
     private String password;
-/**
+
+    /**
+     * 创建人
+     */
+    private Integer createBy;
+
+    /**
+     *  创建时间
+     */
+    private Date createTime;
+
+    /**
+     *  更新人
+     */
+    private Integer updateBy;
+
+    /**
+     *  更新时间
+     */
+    private Date updateTime;
+
+    /**
      *  逻辑删除（0：正常，1：删除）
      */
     private Integer delFlag;
-/**
-     *  创建时间
-     */
-    private Date createtime;
-/**
-     *  更新时间
-     */
-    private Date updatetime;
 
+    public User() {
+    }
+
+    public User(Long id, String username, String password, Integer createBy, Date createTime, Integer updateBy, Date updateTime, Integer delFlag) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.createBy = createBy;
+        this.createTime = createTime;
+        this.updateBy = updateBy;
+        this.updateTime = updateTime;
+        this.delFlag = delFlag;
+    }
 
     public Long getId() {
         return id;
@@ -59,6 +85,38 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public Integer getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Integer createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Integer updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public Integer getDelFlag() {
         return delFlag;
     }
@@ -67,21 +125,18 @@ public class User implements Serializable {
         this.delFlag = delFlag;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", createBy=" + createBy +
+                ", createTime=" + createTime +
+                ", updateBy=" + updateBy +
+                ", updateTime=" + updateTime +
+                ", delFlag=" + delFlag +
+                '}';
     }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
 }
 

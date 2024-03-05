@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
 
         //修改当前的登录时间
-        user.setUpdatetime(new Date());
+        user.setUpdateTime(new Date());
         userDao.updateLoginTime(user);
 
         return new ResponseVo("登录成功",jwt,"0x200");

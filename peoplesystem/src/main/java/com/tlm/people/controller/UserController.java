@@ -49,7 +49,7 @@ public class UserController {
      * @param userLoginBo
      * @return
      */
-    @PostMapping("/Login")
+    @PostMapping("/login")
     @ApiOperation("用户登录")
     public String userLogin(@RequestBody UserLoginBo userLoginBo){
         if(userLoginBo == null){
