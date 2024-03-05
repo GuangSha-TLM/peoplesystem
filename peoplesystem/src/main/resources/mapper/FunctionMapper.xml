@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tlm.people.dao.FunctionDao">
+<mapper namespace="com.tlm.people.dao.FunctionMapper">
+
+    <!-- 导入 -->
+    <insert id="importData">
+        insert into
+            stu
+            (stu_id,status)
+        values
+            (#{stuId},#{status})
+    </insert>
+
+    <!-- 插入数据到数据库(上传文件) -->
+    <insert id="saveData">
+        INSERT INTO
+            stu
+            (stu_id,status)
+        VALUES
+        <foreach collection="cachedDataList" item="item" separator=",">
+            (#{item.stuId}, #{item.status})
+        </foreach>
+    </insert>
 
     <!-- 查询所有学生 -->
-    <select id="findAll" resultType="com.tlm.people.entity.User">
-        select
-            id,username,password,del_flag,createtime,updatetime
-        from
-            user
+    <select id="findAll" resultType="com.tlm.people.entity.Stu">
+        SELECT
+            stu_id,status
+        FROM
+            stu
+        WHERE
+            stu_id = #{stuId}
+        AND
+            status = #{status}
     </select>
 </mapper>

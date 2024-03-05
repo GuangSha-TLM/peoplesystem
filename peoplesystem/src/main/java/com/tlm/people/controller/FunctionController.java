@@ -28,10 +28,12 @@ public class FunctionController {
     }
 
     //导出
+    @ApiOperation("文件下载")
     @GetMapping("/exportData")
     public Result exportData(HttpServletResponse response) {
         functionService.exportData(response);
         return Result.ok();
     }
+
 
 }

@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FunctionExcelVo {
 
-    @ExcelProperty(value = "id" ,index = 0)
-    private Long id;
+    @ExcelProperty(value = "学号" ,index = 0)
+    private Long stuId;
 
-    @ExcelProperty(value = "名称" ,index = 1)
-    private String name;
+    @ExcelProperty(value = "选中状态" ,index = 1)
+    private Integer status;
 
 }
