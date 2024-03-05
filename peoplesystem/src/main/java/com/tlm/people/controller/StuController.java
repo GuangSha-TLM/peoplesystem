@@ -32,7 +32,7 @@ public class StuController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
+    @GetMapping("/selectById/{id}")
     public ResponseEntity<Stu> queryById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.stuService.queryById(id));
     }
@@ -43,7 +43,7 @@ public class StuController {
      * @param stu 实体
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Stu> add(Stu stu) {
         return ResponseEntity.ok(this.stuService.insert(stu));
     }
@@ -54,7 +54,7 @@ public class StuController {
      * @param stu 实体
      * @return 编辑结果
      */
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<Stu> edit(Stu stu) {
         return ResponseEntity.ok(this.stuService.update(stu));
     }
@@ -65,7 +65,7 @@ public class StuController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteById(Long id) {
         return ResponseEntity.ok(this.stuService.deleteById(id));
     }

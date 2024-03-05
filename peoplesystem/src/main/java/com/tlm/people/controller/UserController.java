@@ -41,7 +41,7 @@ public class UserController {
      * @param user 实体
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<User> add(User user) {
         return ResponseEntity.ok(this.userService.insert(user));
     }
@@ -52,7 +52,7 @@ public class UserController {
      * @param user 实体
      * @return 编辑结果
      */
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<User> edit(User user) {
         return ResponseEntity.ok(this.userService.update(user));
     }
@@ -63,7 +63,7 @@ public class UserController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteById(Long id) {
         return ResponseEntity.ok(this.userService.deleteById(id));
     }
