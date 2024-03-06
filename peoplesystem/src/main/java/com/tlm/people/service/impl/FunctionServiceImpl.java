@@ -3,6 +3,7 @@ package com.tlm.people.service.impl;
 import com.alibaba.excel.EasyExcel;
 import com.tlm.people.dao.FunctionMapper;
 import com.tlm.people.entity.Stu;
+import com.tlm.people.entity.bo.FunctionExcelBo;
 import com.tlm.people.entity.vo.FunctionExcelVo;
 import com.tlm.people.service.FunctionService;
 import com.tlm.people.utils.ExcelListener;
@@ -60,17 +61,17 @@ public class FunctionServiceImpl implements FunctionService {
             List<Stu> stuList = functionMapper.findAll();
 
             //最终数据list集合
-            List<FunctionExcelVo> functionExcelVoList = new ArrayList<>();
+            List<FunctionExcelBo> functionExcelBoList = new ArrayList<>();
 
             for (Stu stu : stuList) {
-                FunctionExcelVo functionExcelVo = new FunctionExcelVo();
-                BeanUtils.copyProperties(stu, functionExcelVo);
-                functionExcelVoList.add(functionExcelVo);
+                FunctionExcelBo functionExcelBo = new FunctionExcelBo();
+                BeanUtils.copyProperties(stu, functionExcelBo);
+                functionExcelBoList.add(functionExcelBo);
             }
 
             //写入操作
-            EasyExcel.write(response.getOutputStream(), FunctionExcelVo.class)
-                    .sheet("数据").doWrite(functionExcelVoList);
+            EasyExcel.write(response.getOutputStream(), FunctionExcelBo.class)
+                    .sheet("数据").doWrite(functionExcelBoList);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
