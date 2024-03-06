@@ -10,6 +10,7 @@ import com.tlm.people.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -39,16 +40,24 @@ public class UserServiceImpl implements UserService {
 
         List<Stu> students =  userDao.getStudents();
 
-        Collections.shuffle(students);
-//        System.out.println(students);
-//        System.out.println(students.subList(0, number));
-        List<Stu> stus = students.subList(0, number);
-
-        for (int i = 0; i < stus.size(); i++) {
-            stus.get(i).setStatus(1);
+        if (number>students.size()){
+            return new ResponseVo("剩余的学生人数不足",null,"0x401");
         }
 
-        userDao.updateStudents(stus);
+        Collections.shuffle(students);
+
+        List<Stu> stus = students.subList(0, number);
+
+        ArrayList<Long> list = new ArrayList<>();
+
+        for (int i = 0; i < stus.size(); i++) {
+            list.add(stus.get(i).getStuId());
+
+        }
+
+//        System.out.println(list);
+
+        userDao.updateStudents(list);
 
         return new ResponseVo("一支穿云箭",stus,"0x200");
     }

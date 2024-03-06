@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.awt.print.Pageable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,6 +104,6 @@ public interface UserDao {
      * 更新学生的状态
      * @return
      */
-    void updateStudents(List<Stu> stus);
+    void updateStudents(ArrayList<Long> list);
 }
 
