@@ -57,12 +57,12 @@ public class FunctionServiceImpl implements FunctionService {
             response.setHeader("Content-disposition","attachment;filename=" + fileName + ".xlsx");
 
             //查询所有分类，返回list集合
-            List<Stu> userList = functionMapper.findAll();
+            List<Stu> stuList = functionMapper.findAll();
 
             //最终数据list集合
             List<FunctionExcelVo> functionExcelVoList = new ArrayList<>();
 
-            for (Stu stu : userList) {
+            for (Stu stu : stuList) {
                 FunctionExcelVo functionExcelVo = new FunctionExcelVo();
                 BeanUtils.copyProperties(stu, functionExcelVo);
                 functionExcelVoList.add(functionExcelVo);
