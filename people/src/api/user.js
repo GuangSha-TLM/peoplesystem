@@ -7,3 +7,4 @@ import request from "@/utils/request";
 
 export const resLogin =(user) => request({url:'/tlm/people/user/login',method:'post',data:user});
 export const resRegister =(user) => request({url:'/tlm/people/user/userReg',method:'post',data:user});
+export const resUserShake =(number) => request({url:'/tlm/people/user/userShake',method:'post',params:number});
