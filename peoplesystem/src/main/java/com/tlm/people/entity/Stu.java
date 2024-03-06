@@ -1,6 +1,5 @@
 package com.tlm.people.entity;
 
-import java.util.Date;
 import java.io.Serializable;
 
 /**

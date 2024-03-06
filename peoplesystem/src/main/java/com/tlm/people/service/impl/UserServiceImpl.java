@@ -42,7 +42,15 @@ public class UserServiceImpl implements UserService {
         Collections.shuffle(students);
 //        System.out.println(students);
 //        System.out.println(students.subList(0, number));
-        return new ResponseVo("一支穿云箭，千军万马来相见",students.subList(0, number),"0x200");
+        List<Stu> stus = students.subList(0, number);
+
+        for (int i = 0; i < stus.size(); i++) {
+            stus.get(i).setStatus(1);
+        }
+
+        userDao.updateStudents(stus);
+
+        return new ResponseVo("一支穿云箭",stus,"0x200");
     }
 
     /**

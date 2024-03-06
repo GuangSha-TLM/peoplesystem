@@ -98,5 +98,11 @@ public interface UserDao {
      * @return
      */
     public List<Stu> getStudents();
+
+    /**
+     * 更新学生的状态
+     * @return
+     */
+    void updateStudents(List<Stu> stus);
 }
 
