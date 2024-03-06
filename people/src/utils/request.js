@@ -24,15 +24,16 @@ request.interceptors.response.use(
 
     (response)=>{
       //只能说明响应成功,并不说明请求成功
+      return response
       //此时看response.data.code 200 功能成功否则失败
-      if (response.data.code===200){
-        //一旦没有报错,或没有返回失败的状态promise,即是成功状态
-        // return Promise.resolve(response.data.data)
-        return response.data.data
-      }else {
-        console.log(JSON.stringify(response))
-        return Promise.reject(response.data.message)
-      }
+      // if (response.data.code===200){
+      //   //一旦没有报错,或没有返回失败的状态promise,即是成功状态
+      //   // return Promise.resolve(response.data.data)
+      //   return response.data.data
+      // }else {
+      //   console.log(JSON.stringify(response))
+      //   return Promise.reject(response.data.message)
+      // }
     },
     (error)=>{
       return Promise.reject(error.message)

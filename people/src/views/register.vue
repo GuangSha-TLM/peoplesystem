@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-05 17:03:12
+ * @LastEditTime: 2024-03-06 19:40:22
  * @LastEditors: tianleiyu
  * @Description: login
  * @FilePath: /people/src/views/register.vue
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { resRegister } from '@/api/user';
 
 export default {
   name: 'HomeView',
@@ -70,8 +71,39 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.user.password !== this.user.confirmPassword) {
-
+            this.$message({
+                showClose: true,
+                message:  '两次密码输入不一致请重新输入!',
+                type: 'error'
+              });
+              this.user.password = ''
+              this.user.confirmPassword = ''
           }
+          let user = {
+            username : this.user.username,
+            password : this.user.password
+            
+          }
+          resRegister(user).then((res)=>{
+            console.log(res);
+            if (res.code==='0x200') {
+              this.$message({
+                showClose: true,
+                message: '注册成功!',
+                type: 'success'
+              });
+              this.$router.push('/login')
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'error'
+              });
+              this.user.username=''
+              this.user.password=''
+              this.user.confirmPassword=''
+            }
+          })
         } else {
           return false;
         }

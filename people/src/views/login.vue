@@ -1,12 +1,13 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-05 16:56:03
+ * @LastEditTime: 2024-03-06 19:52:52
  * @LastEditors: tianleiyu
  * @Description: login
- * @FilePath: /people/src/views/Login.vue
+ * @FilePath: /people/src/views/login.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
+
 <template>
   <div :class="{ pc: !$isMobile, mobile: $isMobile }">
     <div class="container">
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-
+import { resLogin } from '@/api/user';
 export default {
   name: 'HomeView',
   data() {
@@ -59,7 +60,25 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          
+          resLogin(this.user).then(res => {
+            console.log(res);
+            if (res.code==='0x200') {
+              this.$message({
+                showClose: true,
+                message: '登陆成功!',
+                type: 'success'
+              });
+              this.$router.push('/')
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'error'
+              });
+              this.user.username=''
+              this.user.password=''
+            }
+          })
         } else {
           return false;
         }
@@ -72,60 +91,70 @@ export default {
 <style lang="scss" scoped>
 .pc {
   height: 100%;
+
   /*
     这里写PC端的样式
   */
   .container {
     height: 100%;
-    background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    background-color: #f7f7f7;
+    // background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
   }
 
   .login-wrapper {
-            background-color: #fff;
-            width: 358Px;
-            height: 588Px;
-            border-radius: 15Px;
-            padding: 0 50Px;
-            position: relative;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .header {
-            font-size: 38Px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 200Px;
-        }
-        .input-item {
-            display: block;
-            width: 100%;
-            margin-bottom: 20Px;
-            border: 0;
-            padding: 10Px;
-            border-bottom: 1Px solid rgb(128, 125, 125);
-            font-size: 15Px;
-            outline: none;
-        }
-        .input-item:placeholder {
-            text-transform: uppercase;
-        }
-        .btn {
-            text-align: center;
-            padding: 10Px;
-            width: 100%;
-            margin-top: 40Px;
-            background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
-            color: #fff;
-        }
-        .msg {
-            text-align: center;
-            line-height: 88Px;
-        }
-        a {
-            text-decoration-line: none;
-            color: #abc1ee;
-        }
+    background-color: #fff;
+    width: 358Px;
+    height: 588Px;
+    border-radius: 15Px;
+    padding: 0 50Px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .header {
+    font-size: 38Px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 200Px;
+  }
+
+  .input-item {
+    display: block;
+    width: 100%;
+    margin-bottom: 20Px;
+    border: 0;
+    padding: 10Px;
+    border-bottom: 1Px solid rgb(128, 125, 125);
+    font-size: 15Px;
+    outline: none;
+  }
+
+  .input-item:placeholder {
+    text-transform: uppercase;
+  }
+
+  .btn {
+    text-align: center;
+    padding: 15Px;
+    width: 100%;
+    margin-top: 25Px;
+    background-color: #abc1ee;
+    // background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
+    color: #fff;
+  }
+
+  .msg {
+    text-align: center;
+    line-height: 88Px;
+  }
+
+  a {
+    text-decoration-line: none;
+    color: #abc1ee;
+  }
+
   ::v-deep .el-input__inner {
     border: 0;
     padding: 0;
@@ -136,7 +165,7 @@ export default {
     border: 0;
   }
 
-  
+
 }
 
 .mobile {
@@ -145,12 +174,16 @@ export default {
   */
 
   height: 100%;
+
   .container {
     height: 100%;
-    background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    background-color: #f7f7f7;
+    // background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
   }
 
   .login-wrapper {
+        // background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
+
     background-color: #fff;
     width: 80%;
     height: 50%;
@@ -203,7 +236,8 @@ export default {
     padding: 10px;
     width: 100%;
     margin-top: 25px;
-    background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
+    background-color:#abc1ee ;
+    // background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
     color: #fff;
     font-size: 30px;
     height: 100px;
