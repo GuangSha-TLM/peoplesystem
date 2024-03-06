@@ -44,16 +44,17 @@ public class FunctionServiceImpl implements FunctionService {
     //文件导出（下载）
     @Override
     public void exportData(HttpServletResponse response) {
+        //1.设置响应头信息和其他信息
         try {
-            //设置响应头信息和其他信息
+            // 设置响应结果类型
             response.setContentType("application/vnd.ms-excel");
             response.setCharacterEncoding("utf-8");
 
-            //防止乱码
+            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
             String fileName = URLEncoder.encode("分类数据", "UTF-8");
 
             //设置响应头
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Content-disposition","attachment;filename=" + fileName + ".xlsx");
 
             //查询所有分类，返回list集合
             List<Stu> userList = functionMapper.findAll();
@@ -80,8 +81,8 @@ public class FunctionServiceImpl implements FunctionService {
         //写操作
         {
             List<FunctionExcelVo> list = new ArrayList<>();
-            list.add(new FunctionExcelVo(12L, 0));
-            list.add(new FunctionExcelVo(13L, 0));
+//            list.add(new FunctionExcelVo(12L, 0));
+//            list.add(new FunctionExcelVo(13L, 0));
             EasyExcel.write("E://02.xlsx", FunctionExcelVo.class)
                     .sheet("分类数据").doWrite(list);
         }

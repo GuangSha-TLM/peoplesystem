@@ -5,32 +5,32 @@
     <!-- 导入 -->
     <insert id="importData">
         insert into
-            stu
-            (stu_id,status)
+            student
+            (stu_id,stu_name)
         values
-            (#{stuId},#{status})
+            (#{stuId},#{stuName})
     </insert>
 
     <!-- 插入数据到数据库(上传文件) -->
     <insert id="saveData">
         INSERT INTO
-            stu
-            (stu_id,status)
+        student
+        (stu_id,stu_name)
         VALUES
         <foreach collection="list" item="cachedDataList" separator=",">
-            (#{cachedDataList.stuId}, #{cachedDataList.status})
+            (#{cachedDataList.stuId}, #{cachedDataList.stuName})
         </foreach>
     </insert>
 
     <!-- 查询所有学生 -->
     <select id="findAll" resultType="com.tlm.people.entity.Stu">
         SELECT
-            stu_id,status
+            stu_id,stu_name
         FROM
-            stu
+            student
         WHERE
             stu_id = #{stuId}
-        AND
-            status = #{status}
+          AND
+            stu_name = #{stuName}
     </select>
 </mapper>

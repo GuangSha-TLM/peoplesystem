@@ -14,6 +14,6 @@ public class FunctionExcelVo {
     private Long stuId;
 
     @ExcelProperty(value = "选中状态" ,index = 1)
-    private Integer status;
+    private String stuName;
 
 }
