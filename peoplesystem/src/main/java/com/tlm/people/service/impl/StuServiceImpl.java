@@ -6,6 +6,7 @@ import com.tlm.people.service.StuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Stu)表服务实现类
@@ -63,5 +64,12 @@ public class StuServiceImpl implements StuService {
     @Override
     public boolean deleteById(Long id) {
         return this.stuDao.deleteById(id) > 0;
+    }
+
+    //查询所有
+    @Override
+    public List<Stu> findAll() {
+        List<Stu> stuList = stuDao.findAll();
+        return stuList;
     }
 }

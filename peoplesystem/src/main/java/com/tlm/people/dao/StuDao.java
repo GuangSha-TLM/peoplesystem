@@ -82,5 +82,7 @@ public interface StuDao {
      */
     int deleteById(Long id);
 
+    //查询所有
+    List<Stu> findAll();
 }
 

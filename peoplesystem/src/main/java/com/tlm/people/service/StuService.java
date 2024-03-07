@@ -2,6 +2,8 @@ package com.tlm.people.service;
 
 import com.tlm.people.entity.Stu;
 
+import java.util.List;
+
 /**
  * (Stu)表服务接口
  *
@@ -43,4 +45,6 @@ public interface StuService {
      */
     boolean deleteById(Long id);
 
+    //查询所有
+    List<Stu> findAll();
 }

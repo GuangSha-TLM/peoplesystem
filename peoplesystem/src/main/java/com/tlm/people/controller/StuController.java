@@ -3,11 +3,13 @@ package com.tlm.people.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.tlm.people.entity.Stu;
+import com.tlm.people.result.Result;
 import com.tlm.people.service.StuService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Stu)表控制层
@@ -24,7 +26,12 @@ public class StuController {
     @Resource
     private StuService stuService;
 
-
+    //查询所有
+    @GetMapping("/findAll")
+    public Result findAll() {
+        List<Stu> stuList = stuService.findAll();
+        return Result.ok(stuList);
+    }
 
     /**
      * 通过主键查询单条数据
