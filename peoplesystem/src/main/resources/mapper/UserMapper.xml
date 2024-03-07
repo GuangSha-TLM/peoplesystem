@@ -29,12 +29,13 @@
     <update id="updateStudents">
         update student
         <set>
-            <if test="true">
-                update_by = #{updateBy},update_time = #{updateTime},
-            </if>
+            status=1
         </set>
         where
-        id = #{id}
+            stu_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
     </update>
 
 

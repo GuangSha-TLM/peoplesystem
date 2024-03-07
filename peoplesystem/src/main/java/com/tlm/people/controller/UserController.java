@@ -36,7 +36,6 @@ public class UserController {
     @PostMapping("/userShake")
     @ApiOperation("用户摇人")
     public String userShakePerson(@RequestParam("number") Integer number){
-
         return JSONArray.toJSONString(userService.userShake(number));
     }
 
