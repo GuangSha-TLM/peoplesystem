@@ -6,6 +6,7 @@ import com.tlm.people.service.StuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,4 +73,26 @@ public class StuServiceImpl implements StuService {
         List<Stu> stuList = stuDao.findAll();
         return stuList;
     }
+
+    //修改状态
+    @Override
+    public void updateStatus(List<Long> stuIdList) {
+
+        List<Stu> stuList = new ArrayList<>();
+
+        for (Long id : stuIdList) {
+            Stu stu = stuDao.queryById(id);
+            stuList.add(stu);
+        }
+
+        for (Stu stu : stuList) {
+            if(stu.getStatus() == 0){
+                stu.setStatus(1);
+            } else {
+                stu.setStatus(0);
+            }
+            stuDao.updateStatus(stu);
+        }
+    }
+
 }

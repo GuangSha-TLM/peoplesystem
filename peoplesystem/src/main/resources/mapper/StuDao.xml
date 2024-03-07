@@ -13,8 +13,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="StuMap">
         select
-idstu_idstatuscreatetimeupdatetime
-        from stu
+id,stu_id,stu_name,status
+        from student
         where id = #{id}
     </select>
 
@@ -22,7 +22,7 @@ idstu_idstatuscreatetimeupdatetime
     <select id="queryAllByLimit" resultMap="StuMap">
         select
 idstu_idstatuscreatetimeupdatetime
-        from stu
+        from student
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -46,7 +46,7 @@ idstu_idstatuscreatetimeupdatetime
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
-        from stu
+        from student
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -81,7 +81,7 @@ idstu_idstatuscreatetimeupdatetime
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into stu(stu_idstatuscreatetimeupdatetime)
+        insert into student(stu_idstatuscreatetimeupdatetime)
         values
         <foreach collection="entities" item="entity" separator=",">
         (#{entity.stuId}#{entity.status}#{entity.createtime}#{entity.updatetime})
@@ -89,7 +89,7 @@ idstu_idstatuscreatetimeupdatetime
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into stu(stu_idstatuscreatetimeupdatetime)
+        insert into student(stu_idstatuscreatetimeupdatetime)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.stuId}#{entity.status}#{entity.createtime}#{entity.updatetime})
@@ -100,7 +100,7 @@ stu_id = values(stu_id)status = values(status)createtime = values(createtime)upd
 
     <!--通过主键修改数据-->
     <update id="update">
-        update stu
+        update student
         <set>
             <if test="stuId != null">
                 stu_id = #{stuId},
@@ -116,6 +116,19 @@ stu_id = values(stu_id)status = values(status)createtime = values(createtime)upd
             </if>
         </set>
         where id = #{id}
+    </update>
+
+    <!-- 修改状态 -->
+    <update id="updateStatus">
+        update
+            student
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where
+            stu_id = #{stuId}
     </update>
 
     <!--通过主键删除-->

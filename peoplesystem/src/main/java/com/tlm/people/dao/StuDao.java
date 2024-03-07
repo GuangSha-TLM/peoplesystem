@@ -84,5 +84,8 @@ public interface StuDao {
 
     //查询所有
     List<Stu> findAll();
+
+    //修改状态
+    void updateStatus(Stu stu);
 }
 

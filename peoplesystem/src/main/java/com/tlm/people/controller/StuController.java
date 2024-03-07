@@ -35,6 +35,13 @@ public class StuController {
         return JSONArray.toJSONString(new ResponseVo("查询成功",stuList,"0x200"));
     }
 
+    //修改状态
+    @PostMapping("/updateStatus")
+    public String updateStatus(@RequestBody List<Long> stuIdList) {
+        stuService.updateStatus(stuIdList);
+        return JSONArray.toJSONString(new ResponseVo("修改成功",null,"0x200"));
+    }
+
     /**
      * 通过主键查询单条数据
      *

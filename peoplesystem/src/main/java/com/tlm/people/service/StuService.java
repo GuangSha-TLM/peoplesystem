@@ -47,4 +47,7 @@ public interface StuService {
 
     //查询所有
     List<Stu> findAll();
+
+    //修改状态
+    void updateStatus(List<Long> stuIdList);
 }
