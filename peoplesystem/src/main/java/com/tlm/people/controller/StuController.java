@@ -1,8 +1,10 @@
 package com.tlm.people.controller;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.tlm.people.entity.Stu;
+import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.result.Result;
 import com.tlm.people.service.StuService;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +30,9 @@ public class StuController {
 
     //查询所有
     @GetMapping("/findAll")
-    public Result findAll() {
+    public String findAll() {
         List<Stu> stuList = stuService.findAll();
-        return Result.ok(stuList);
+        return JSONArray.toJSONString(new ResponseVo("查询成功",stuList,"0x200"));
     }
 
     /**
