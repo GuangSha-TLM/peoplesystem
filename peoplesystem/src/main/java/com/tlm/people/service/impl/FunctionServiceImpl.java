@@ -5,6 +5,7 @@ import com.tlm.people.dao.FunctionMapper;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.bo.FunctionExcelBo;
 import com.tlm.people.entity.vo.FunctionExcelVo;
+import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.FunctionService;
 import com.tlm.people.utils.ExcelListener;
 import org.springframework.beans.BeanUtils;
@@ -25,10 +26,10 @@ public class FunctionServiceImpl implements FunctionService {
 
     //上传
     @Override
-    public void importData(MultipartFile multipartFile) {
+    public ResponseVo importData(MultipartFile multipartFile) {
 
         if (multipartFile.isEmpty()) {
-            throw new RuntimeException("上传的文件为空");
+            return new ResponseVo("上传文件为空", null, "0x500");
         }
 
         ExcelListener<FunctionExcelVo> excelListener = new ExcelListener<>(functionMapper);
@@ -38,8 +39,9 @@ public class FunctionServiceImpl implements FunctionService {
                     .sheet().doRead();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            return new ResponseVo("上传文件格式有误", null, "0x501");
         }
+        return new ResponseVo("上传文件成功", null, "0x200");
     }
 
     //文件导出（下载）
