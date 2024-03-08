@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-08 17:15:34
+ * @LastEditTime: 2024-03-08 18:08:48
  * @LastEditors: tianleiyu
  * @Description: login
  * @FilePath: /people/src/views/login.vue
@@ -36,6 +36,7 @@
 
 <script>
 import { resLogin } from '@/api/user';
+import { setToken } from '@/utils/token';
 export default {
   name: 'HomeView',
   data() {
@@ -67,6 +68,8 @@ export default {
                 message: '登陆成功!',
                 type: 'success'
               });
+              
+              setToken(res.data.data)
               this.$router.push('/')
             } else {
               this.$message({

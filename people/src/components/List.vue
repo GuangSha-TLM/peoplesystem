@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 09:47:20
- * @LastEditTime: 2024-03-08 17:15:18
+ * @LastEditTime: 2024-03-08 16:35:57
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/components/List.vue
@@ -67,7 +67,7 @@ export default {
         },
         toggleSelection() {
             resUpdateStatus(this.multipleSelection).then((res) => {
-                if (res.data.code === '0x200') {
+                if (res.code === '0x200') {
                     this.$message({
                         showClose: true,
                         message: '修改成功!',
@@ -97,16 +97,13 @@ export default {
         list() {
             // 检查路由 params 中是否有需要的数据  
             let list = this.$route.params.list;
-            // console.log(list);
             // 如果 params 中有数据，则返回它  
             if (list) {
                 return list;
             }
-            // console.log(this.lists);
             // 否则，返回从 props 中获取的数据  
             if (this.lists) {
                 return this.lists;
-
             }
             return []
         }
