@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-08 16:55:44
+ * @LastEditTime: 2024-03-08 17:48:19
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -16,23 +16,33 @@
       <el-button type="primary" @click="download">下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
+      <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
-    <List :lists="list" @getAllStu="getAllStu" />
+    <List class="list" :lists="list" @getAllStu="getAllStu" />
 
 
+    <!-- 上传的表单 -->
     <el-dialog title="提示" :visible.sync="isUpload" width="70%" center>
-      <el-upload class="upload-demo" action="#" :file-list="fileList" :on-change="handleChange"
-        :before-upload="beforeAvatarUpload" :http-request="confirmUpload" :limit="1">
+      <el-upload class="upload-demo" action="#" :file-list="fileList" :auto-upload="false" :on-change="handleChange"
+        :before-upload="beforeAvatarUpload" show-file-list :http-request="confirmUpload" :limit="1">
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传xls/xlsx文件，且不超过10MB</div>
       </el-upload>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+        <el-button @click="isUpload = false">取 消</el-button>
+        <el-button type="primary" @click="confirmUpload">确 定</el-button>
       </span>
     </el-dialog>
 
 
+    <!--提示用户excel的格式  -->
+    <el-dialog title="提示" :visible.sync="exceltype" center :show-close="false">
+      <img src="@/assets/excelExample.png" alt="" width="100%">
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="exceltype = false">我已确认</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -49,7 +59,8 @@ export default {
     return {
       list: [],
       isUpload: false,
-      fileList: []
+      fileList: [],
+      exceltype: false,
     };
   },
 
@@ -60,7 +71,7 @@ export default {
   methods: {
     getAllStu() {
       resGetStu().then((res) => {
-        if (res.status ===200) {
+        if (res.data.code === '0x200') {
           this.list = res.data.data
         } else {
           this.$message({
@@ -77,14 +88,25 @@ export default {
       formData.append("multipartFile", this.fileList[0].raw)
       console.log(formData);
       resUpload(formData).then((res) => {
-        if (res.status ===200) {
+        if (res.data.code === '0x200') {
           console.log(res);
+          this.$message({
+            showClose: true,
+            message: '上传成功!',
+            type: 'success'
+          });
+          this.fileList = [];
+          this.isUpload = false
+        } else {
+          this.$message({
+            showClose: true,
+            message: '数据不匹配,请检查excel后重新上传!',
+            type: 'error'
+          });
+          this.exceltype = true
+          this.fileList = [];
         }
-        
       })
-      this.fileList = [];
-      // console.log(res);
-
     },
     handleChange(file, fileList) { //文件数量改变
       this.fileList = fileList;
@@ -105,20 +127,20 @@ export default {
     download() {
       resDownload()
         .then(response => {
-          if (response.status ===200) {
-          const fileName = response.headers["content-disposition"].split(";")[1].split("=")[1]
-          // console.log(decodeURIComponent(fileName));
-          let link = document.createElement('a');
-          link.href = window.URL.createObjectURL(response.data);
-          link.download = decodeURIComponent(fileName);//设置下载文件名
-          link.click();//模拟点击
-          //释放资源并删除创建的a标签
-          URL.revokeObjectURL(link.href);
-          link.remove()
+          if (response.status === 200) {
+            const fileName = response.headers["content-disposition"].split(";")[1].split("=")[1]
+            // console.log(decodeURIComponent(fileName));
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(response.data);
+            link.download = decodeURIComponent(fileName);//设置下载文件名
+            link.click();//模拟点击
+            //释放资源并删除创建的a标签
+            URL.revokeObjectURL(link.href);
+            link.remove()
           }
-          
+
         });
-      
+
     }
 
   },
@@ -150,6 +172,7 @@ export default {
     }
   }
 
+
 }
 
 .mobile {
@@ -158,15 +181,27 @@ export default {
     */
 
   height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
 
   .top {
+    height: 6%;
     display: flex;
     justify-content: space-around;
-    margin: 20px 0;
+    margin: 1% 0;
 
     ::v-deep .el-button {
       margin-left: 0;
+      height: 100%;
     }
+  }
+
+  ::v-deep .el-dialog {
+    width: 100%;
+  }
+
+  .list {
+    height: 92%;
   }
 
 }
