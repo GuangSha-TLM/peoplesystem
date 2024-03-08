@@ -56,7 +56,7 @@ public class FunctionServiceImpl implements FunctionService {
 
             //设置响应头
             response.setHeader("Content-disposition","attachment;filename=" + fileName + ".xlsx");
-
+            response.setHeader("Access-Control-Expose-Headers","Content-disposition");
             //查询所有分类，返回list集合
             List<Stu> stuList = functionMapper.findAll();
 
