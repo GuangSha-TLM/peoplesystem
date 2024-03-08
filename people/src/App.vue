@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-05 13:47:05
+ * @LastEditTime: 2024-03-07 18:33:12
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/App.vue
@@ -44,4 +44,5 @@ body {
 #app {
   height: 100%;
 }
+
 </style>

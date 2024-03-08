@@ -1,3 +1,4 @@
+
 import axios  from "axios";
 const request = axios.create({
     baseURL:'/api',
@@ -13,13 +14,7 @@ request.interceptors.request.use(
     },
     // ()=>{}
   )
-//响应拦截器
-request.interceptors.response.use((res)=>{
-    return res.data
-},(error)=>{
-    //响应失败
-    return Promise.reject(new Error('faile'));
-})
+
 request.interceptors.response.use(
 
     (response)=>{

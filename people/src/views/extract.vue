@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-07 17:20:51
+ * @LastEditTime: 2024-03-08 16:42:43
  * @LastEditors: tianleiyu
  * @Description: login
  * @FilePath: /people/src/views/extract.vue
@@ -60,20 +60,19 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    console.log(this.extract);
                     resUserShake(this.extract)
                     .then(res => {
-                        if (res.code === '0x200') {
+                        if (res.status===200) {
                             this.$message({
                                 showClose: true,
                                 message: '抽取成功!',
                                 type: 'success'
                             });
-                            this.$router.push({name: 'list',params:{list:res.data}})
+                            this.$router.push({name: 'list',params:{list:res.data.data}})
                         } else {
                             this.$message({
                                 showClose: true,
-                                message: res.message,
+                                message: res.data.message,
                                 type: 'error'
                             });
                         }

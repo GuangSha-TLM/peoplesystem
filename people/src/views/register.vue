@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-06 19:40:22
+ * @LastEditTime: 2024-03-08 16:42:15
  * @LastEditors: tianleiyu
  * @Description: login
  * @FilePath: /people/src/views/register.vue
@@ -85,8 +85,7 @@ export default {
             
           }
           resRegister(user).then((res)=>{
-            console.log(res);
-            if (res.code==='0x200') {
+            if (res.status === 200) {
               this.$message({
                 showClose: true,
                 message: '注册成功!',
@@ -96,7 +95,7 @@ export default {
             } else {
               this.$message({
                 showClose: true,
-                message: res.message,
+                message: res.data.message,
                 type: 'error'
               });
               this.user.username=''
