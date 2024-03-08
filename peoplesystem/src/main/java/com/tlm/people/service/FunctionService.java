@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface FunctionService {
 
     //文件上传
-    ResponseVo importData(MultipartFile multipartFile);
+    void importData(MultipartFile multipartFile);
 
     //文件导出（下载）
     void exportData(HttpServletResponse response);

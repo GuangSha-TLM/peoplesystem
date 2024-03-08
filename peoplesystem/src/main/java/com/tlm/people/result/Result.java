@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Result<T> {
 
-    private Integer code;//状态码
+    private String code;//状态码
     private String message;//返回信息
     private T data;//数据
 
@@ -49,7 +49,7 @@ public class Result<T> {
         return this;
     }
 
-    public Result<T> code(Integer code){
+    public Result<T> code(String code){
         this.setCode(code);
         return this;
     }

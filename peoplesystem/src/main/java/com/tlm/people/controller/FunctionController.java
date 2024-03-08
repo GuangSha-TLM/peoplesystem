@@ -25,7 +25,8 @@ public class FunctionController {
     @ApiOperation("上传文件")
     @PostMapping("/importData")
     public String importData(MultipartFile multipartFile) {
-        return JSONArray.toJSONString(functionService.importData(multipartFile));
+        functionService.importData(multipartFile);
+        return JSONArray.toJSONString(new ResponseVo("上传成功",null,"0x200"));
     }
 
     //导出

@@ -8,12 +8,14 @@ import com.tlm.people.entity.vo.FunctionExcelVo;
 import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.FunctionService;
 import com.tlm.people.utils.ExcelListener;
+import com.tlm.people.utils.GuiguException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,10 @@ public class FunctionServiceImpl implements FunctionService {
 
     //上传
     @Override
-    public ResponseVo importData(MultipartFile multipartFile) {
+    public void importData(MultipartFile multipartFile) {
 
         if (multipartFile.isEmpty()) {
-            return new ResponseVo("上传文件为空", null, "0x500");
+            throw new GuiguException("0x500","文件为空");
         }
 
         ExcelListener<FunctionExcelVo> excelListener = new ExcelListener<>(functionMapper);
@@ -39,9 +41,8 @@ public class FunctionServiceImpl implements FunctionService {
                     .sheet().doRead();
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseVo("上传文件格式有误", null, "0x501");
+            throw new GuiguException("0x501","文件格式错误");
         }
-        return new ResponseVo("上传文件成功", null, "0x200");
     }
 
     //文件导出（下载）
