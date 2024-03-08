@@ -62,7 +62,7 @@ export default {
                 if (valid) {
                     resUserShake(this.extract)
                     .then(res => {
-                        if (res.status===200) {
+                        if (res.data.code==='0x200') {
                             this.$message({
                                 showClose: true,
                                 message: '抽取成功!',

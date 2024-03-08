@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-04 16:49:15
- * @LastEditTime: 2024-03-08 16:41:49
+ * @LastEditTime: 2024-03-08 17:15:34
  * @LastEditors: tianleiyu
  * @Description: login
  * @FilePath: /people/src/views/login.vue
@@ -61,7 +61,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           resLogin(this.user).then(res => {
-            if (res.status ===200) {
+            if (res.data.code === '0x200') {
               this.$message({
                 showClose: true,
                 message: '登陆成功!',
