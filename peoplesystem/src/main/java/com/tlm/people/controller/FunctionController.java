@@ -1,5 +1,7 @@
 package com.tlm.people.controller;
 
+import com.alibaba.fastjson2.JSONArray;
+import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.result.Result;
 import com.tlm.people.service.FunctionService;
 import io.swagger.annotations.ApiOperation;
@@ -22,17 +24,17 @@ public class FunctionController {
     //上传文件
     @ApiOperation("上传文件")
     @PostMapping("/importData")
-    public Result importData(MultipartFile multipartFile) {
+    public String importData(MultipartFile multipartFile) {
         functionService.importData(multipartFile);
-        return Result.ok();
+        return JSONArray.toJSONString(new ResponseVo("上传s成功",null,"0x200"));
     }
 
     //导出
     @ApiOperation("文件下载")
     @GetMapping("/exportData")
-    public Result exportData(HttpServletResponse response) {
+    public String exportData(HttpServletResponse response) {
         functionService.exportData(response);
-        return Result.ok();
+        return JSONArray.toJSONString(new ResponseVo("下载成功",null,"0x200"));
     }
 
 

@@ -16,7 +16,7 @@ public class FunctionExcelBo {
     @ExcelProperty(value = "姓名" ,index = 1)
     private String stuName;
 
-    @ExcelProperty(value = "姓名" ,index = 2)
+    @ExcelProperty(value = "状态" ,index = 2)
     private Integer status;
 
 }
