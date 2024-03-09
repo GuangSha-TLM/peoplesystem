@@ -17,6 +17,6 @@ server:
 filePath: "D:/Desktop/System/history/Community/Community-system/core/src/main/resources/img/user/"
 #D:\Desktop\System\history\Community\Community-system\core\src\main\resources
 # 服务器url路径
-projecturl: "http://127.0.0.1:8008"
+projecturl: "http://127.0.0.1:7211"
 
 
