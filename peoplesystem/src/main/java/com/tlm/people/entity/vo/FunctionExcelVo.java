@@ -1,13 +1,7 @@
 package com.tlm.people.entity.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class FunctionExcelVo {
 
     @ExcelProperty(value = "学号" ,index = 0)
@@ -16,4 +10,34 @@ public class FunctionExcelVo {
     @ExcelProperty(value = "姓名" ,index = 1)
     private String stuName;
 
+    public FunctionExcelVo(Long stuId, String stuName) {
+        this.stuId = stuId;
+        this.stuName = stuName;
+    }
+
+    public FunctionExcelVo(){}
+
+    public Long getStuId() {
+        return stuId;
+    }
+
+    public void setStuId(Long stuId) {
+        this.stuId = stuId;
+    }
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    @Override
+    public String toString() {
+        return "FunctionExcelVo{" +
+                "stuId=" + stuId +
+                ", stuName='" + stuName + '\'' +
+                '}';
+    }
 }
