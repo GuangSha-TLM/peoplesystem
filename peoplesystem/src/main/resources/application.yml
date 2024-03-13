@@ -10,7 +10,7 @@ spring:
       max-file-size: 10000MB
       max-request-size: 100000MB
 server:
-  port: 7211
+  port: 7111
 
 # 选择api项目下的resouces路径下的user文件夹
 # filePath: "/Users/yangyida/Documents/project/complaint_system/web-server/src/main/resources/img/user/"
