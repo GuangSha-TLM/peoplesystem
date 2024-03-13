@@ -78,21 +78,12 @@ public class StuServiceImpl implements StuService {
     @Override
     public void updateStatus(List<Long> stuIdList) {
 
-        List<Stu> stuList = new ArrayList<>();
+        //stream流优化
+        stuIdList.stream()
+                .map(stuDao :: queryById)
+                .peek(stu -> ((Stu) stu).setStatus(((Stu) stu).getStatus() == 0 ? 1 : 0))
+                .forEach(stuDao :: updateStatus);
 
-        for (Long id : stuIdList) {
-            Stu stu = stuDao.queryById(id);
-            stuList.add(stu);
-        }
-
-        for (Stu stu : stuList) {
-            if(stu.getStatus() == 0){
-                stu.setStatus(1);
-            } else {
-                stu.setStatus(0);
-            }
-            stuDao.updateStatus(stu);
-        }
     }
 
 }
