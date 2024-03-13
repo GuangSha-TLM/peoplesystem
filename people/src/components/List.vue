@@ -24,12 +24,13 @@
             <el-table-column prop="stuName" label="姓名">
             </el-table-column>
             <el-table-column prop="status" label="状态">
-                <template slot="header" slot-scope="scope">
+                <!-- <template slot="header" slot-scope="scope">
                     <el-button type="primary" @click="toggleSelection()">修改</el-button>
-                </template>
+                </template> -->
                 <template slot-scope="scope">
-                    {{ scope.row.status == 1 ? "未选中" : "已选中" }}
+                    {{ scope.row.status === 1 ? '未选择' : "已选择" }}
                 </template>
+
             </el-table-column>
 
         </el-table>
@@ -38,14 +39,12 @@
 </template>
 
 <script>
-import { resUpdateStatus } from '@/api/user'
 
 export default {
     data() {
         return {
-            //多选
-            multipleSelection: [],
-            isList: false
+            // multipleSelection: [],
+            isList:false
         }
     },
     mounted() {
@@ -72,35 +71,35 @@ export default {
                 var id = val[index].stuId;
                 IdList.push(id);
             }
-            this.multipleSelection = IdList;
+            this.$emit('multipleSelection',IdList)
         },
-        toggleSelection() {
-            resUpdateStatus(this.multipleSelection).then((res) => {
-                console.log(res);
-                if (res.data.code === '0x200') {
-                    this.$message({
-                        showClose: true,
-                        message: '修改成功!',
-                        type: 'success'
-                    });
-                    this.$emit('getAllStu')
-                } else {
-                    this.$message({
-                        showClose: true,
-                        message: res.data.message,
-                        type: 'error'
-                    });
-                }
-            })
-        },
-        go() {
+        // toggleSelection() {
+        //     resUpdateStatus(this.multipleSelection).then((res) => {
+        //         console.log(res);
+        //         if (res.data.code === '0x200') {
+        //             this.$message({
+        //                 showClose: true,
+        //                 message: '修改成功!',
+        //                 type: 'success'
+        //             });
+        //             this.$emit('getAllStu')
+        //         } else {
+        //             this.$message({
+        //                 showClose: true,
+        //                 message: res.data.message,
+        //                 type: 'error'
+        //             });
+        //         }
+        //     })
+        // },
+        go(){
             this.$router.go(-2)
         },
         //抽取之后的下载功能的方法
         //需要获取抽取到人的id
 
         download() {
-            
+
             resDownload()
                 .then(response => {
                     if (response.status === 200) {
@@ -116,10 +115,13 @@ export default {
                     }
                 })
         }
-
     },
     props: {
         lists: {
+            type: Array,
+            default: () => []
+        },
+        multipleSelection:{
             type: Array,
             default: () => []
         }
@@ -147,23 +149,22 @@ export default {
     background-color: #abc1ee;
     border: 0;
 }
-
 ::v-deep .el-table__cell {
     padding: 10px 0;
 }
-
-::v-deep .cell {
-    padding-left: 0;
+::v-deep .cell{
+    padding-left: 0 ;
     text-align: center;
 }
 
 // ::v-deep .el-button{
 //   background-color: #abc1ee;
 // }
-.pc {}
-
-.mobile {
-    .arrow-left {
+.pc{
+    
+}
+.mobile{
+    .arrow-left{
         background-color: #fff;
         color: #999;
     }

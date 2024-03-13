@@ -13,16 +13,14 @@
     <!-- -->
     <div class="top">
       <el-button type="primary" @click="isUpload = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
-      <el-button type="primary" @click="download" >下载<i class="el-icon-download el-icon--right"></i></el-button>
+      <el-button type="primary" @click="download">下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
-      <!-- 修改按钮，添加一个其他的按钮 */-->
-      <button data-v-264bddce="" type="button" class="el-button el-button--primary">
-              <!----><!----><span>修改</span></button>
+      <el-button type="primary" @click="toggleSelection()">修改</el-button>
 
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
-    <List class="list" :lists="list" @getAllStu="getAllStu" />
+    <List class="list" :lists="list" @getAllStu="getAllStu" @multipleSelection="getMultipleSelection" />
 
 
     <!-- 上传的表单 -->
@@ -51,6 +49,7 @@
 </template>
 
 <script>
+import { resUpdateStatus } from '@/api/user'
 import List from '@/components/List.vue';
 import { resGetStu, resUpload, resDownload } from '@/api/user';
 
@@ -65,6 +64,7 @@ export default {
       isUpload: false,
       fileList: [],
       exceltype: false,
+      multipleSelection:[]
     };
   },
 
@@ -73,6 +73,10 @@ export default {
   },
 
   methods: {
+    getMultipleSelection(multipleSelection){
+      this.multipleSelection = multipleSelection
+      console.log(this.multipleSelection);
+       },
     getAllStu() {
       resGetStu().then((res) => {
         if (res.data.code === '0x200') {
@@ -145,6 +149,30 @@ export default {
 
         });
 
+    },
+    //修改接口
+    toggleSelection() {
+      resUpdateStatus(this.multipleSelection).then((res) => {
+        console.log(res);
+        if (res.data.code === '0x200') {
+          this.$message({
+            showClose: true,
+            message: '修改成功!',
+            type: 'success'
+          });
+          this.getAllStu()
+        } else {
+          this.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          });
+        }
+      })
+    },
+    //获取子类的数据
+    getListData(data){
+      console.log(data);
     }
 
   },
