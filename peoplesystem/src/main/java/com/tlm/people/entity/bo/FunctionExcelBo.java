@@ -1,10 +1,6 @@
 package com.tlm.people.entity.bo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 public class FunctionExcelBo {
 
