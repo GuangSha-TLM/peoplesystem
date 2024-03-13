@@ -1,8 +1,5 @@
 package com.tlm.people.result;
 
-import lombok.Data;
-
-@Data
 public class Result<T> {
 
     private String code;//状态码
@@ -52,5 +49,29 @@ public class Result<T> {
     public Result<T> code(String code){
         this.setCode(code);
         return this;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }

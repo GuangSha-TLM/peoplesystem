@@ -1,9 +1,7 @@
 package com.tlm.people.utils;
 
 import com.tlm.people.result.ResultCodeEnum;
-import lombok.Data;
 
-@Data
 public class GuiguException extends RuntimeException {
 
     private String code;//状态码
@@ -23,6 +21,22 @@ public class GuiguException extends RuntimeException {
         super(resultCodeEnum.getMessage());
         this.code = resultCodeEnum.getCode();
         this.msg = resultCodeEnum.getMessage();
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     @Override
