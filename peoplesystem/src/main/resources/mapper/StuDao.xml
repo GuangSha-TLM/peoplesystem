@@ -6,8 +6,6 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="stuId" column="stu_id" jdbcType="INTEGER"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
-        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
@@ -135,6 +133,9 @@ stu_id = values(stu_id)status = values(status)createtime = values(createtime)upd
     <delete id="deleteById">
         delete from stu where id = #{id}
     </delete>
-
+    <!--删除-->
+    <delete id="deleteByAll">
+        TRUNCATE TABLE student
+    </delete>
 </mapper>
 

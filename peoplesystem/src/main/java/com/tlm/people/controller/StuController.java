@@ -42,6 +42,11 @@ public class StuController {
         return JSONArray.toJSONString(new ResponseVo("修改成功",null,"0x200"));
     }
 
+    @PostMapping("/deleteByAll")
+    public String deleteByAll(){
+        stuService.deleteByAll();
+        return JSONArray.toJSONString(new ResponseVo("已全部删除",null,"0x200"));
+    }
     /**
      * 通过主键查询单条数据
      *
@@ -85,6 +90,7 @@ public class StuController {
     public ResponseEntity<Boolean> deleteById(Long id) {
         return ResponseEntity.ok(this.stuService.deleteById(id));
     }
+
 
 }
 

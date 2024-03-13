@@ -87,5 +87,8 @@ public interface StuDao {
 
     //修改状态
     void updateStatus(Stu stu);
+
+
+    void deleteByAll();
 }
 

@@ -6,7 +6,6 @@ import com.tlm.people.service.StuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,6 +83,11 @@ public class StuServiceImpl implements StuService {
                 .peek(stu -> ((Stu) stu).setStatus(((Stu) stu).getStatus() == 0 ? 1 : 0))
                 .forEach(stuDao :: updateStatus);
 
+    }
+
+    @Override
+    public void deleteByAll() {
+        stuDao.deleteByAll();
     }
 
 }

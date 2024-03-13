@@ -13,6 +13,8 @@
     "lib-flexible": "^0.3.2",
     "postcss-px-to-viewport": "^1.1.1",
     "postcss-pxtorem": "^6.1.0",
+    "serve": "^14.2.1",
+    "server": "^1.0.38",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1"
   },

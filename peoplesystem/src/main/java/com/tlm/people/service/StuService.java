@@ -50,4 +50,6 @@ public interface StuService {
 
     //修改状态
     void updateStatus(List<Long> stuIdList);
+
+    void deleteByAll();
 }
