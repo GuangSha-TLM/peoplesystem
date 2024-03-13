@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 09:47:20
- * @LastEditTime: 2024-03-08 16:35:57
+ * @LastEditTime: 2024-03-13 14:44:57
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/components/List.vue
@@ -67,7 +67,8 @@ export default {
         },
         toggleSelection() {
             resUpdateStatus(this.multipleSelection).then((res) => {
-                if (res.code === '0x200') {
+                console.log(res);
+                if (res.data.code === '0x200') {
                     this.$message({
                         showClose: true,
                         message: '修改成功!',
