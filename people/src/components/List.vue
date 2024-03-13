@@ -10,9 +10,14 @@
 
 <template>
     <div :class="{ pc: !$isMobile, mobile: $isMobile }">
-        <el-button type="primary" class="arrow-left" v-if="isList" icon="el-icon-arrow-left" @click="go">上一页 </el-button>
+        <el-button type="primary" class="arrow-left" v-if="isList" icon="el-icon-arrow-left" @click="go">上一页
+        </el-button>
+        <!-- 1.**下载按钮 -->
+        <el-button type="primary" @click="download" v-if="isList">下载<i
+                class="el-icon-download el-icon--right"></i></el-button>
+
         <el-table :data="list" height="100%" border @selection-change="handleSelectionChange">
-            <el-table-column type="selection">
+            <el-table-column type="selection" v-if="!isList">
             </el-table-column>
             <el-table-column prop="stuId" label="序号">
             </el-table-column>
@@ -21,6 +26,9 @@
             <el-table-column prop="status" label="状态">
                 <template slot="header" slot-scope="scope">
                     <el-button type="primary" @click="toggleSelection()">修改</el-button>
+                </template>
+                <template slot-scope="scope">
+                    {{ scope.row.status == 1 ? "未选中" : "已选中" }}
                 </template>
             </el-table-column>
 
@@ -35,8 +43,9 @@ import { resUpdateStatus } from '@/api/user'
 export default {
     data() {
         return {
+            //多选
             multipleSelection: [],
-            isList:false
+            isList: false
         }
     },
     mounted() {
@@ -84,9 +93,30 @@ export default {
                 }
             })
         },
-        go(){
+        go() {
             this.$router.go(-2)
+        },
+        //抽取之后的下载功能的方法
+        //需要获取抽取到人的id
+
+        download() {
+            
+            resDownload()
+                .then(response => {
+                    if (response.status === 200) {
+                        const fileName = response.headers["content-disposition"].split(";")[1].split("=")[1]
+                        // console.log(decodeURIComponent(fileName));
+                        let link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(response.data);
+                        link.download = decodeURIComponent(fileName);//设置下载文件名
+                        link.click();//模拟点击
+                        //释放资源并删除创建的a标签
+                        URL.revokeObjectURL(link.href);
+                        link.remove()
+                    }
+                })
         }
+
     },
     props: {
         lists: {
@@ -117,22 +147,23 @@ export default {
     background-color: #abc1ee;
     border: 0;
 }
+
 ::v-deep .el-table__cell {
     padding: 10px 0;
 }
-::v-deep .cell{
-    padding-left: 0 ;
+
+::v-deep .cell {
+    padding-left: 0;
     text-align: center;
 }
 
 // ::v-deep .el-button{
 //   background-color: #abc1ee;
 // }
-.pc{
-    
-}
-.mobile{
-    .arrow-left{
+.pc {}
+
+.mobile {
+    .arrow-left {
         background-color: #fff;
         color: #999;
     }

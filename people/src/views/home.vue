@@ -13,9 +13,13 @@
     <!-- -->
     <div class="top">
       <el-button type="primary" @click="isUpload = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
-      <el-button type="primary" @click="download">下载<i class="el-icon-download el-icon--right"></i></el-button>
+      <el-button type="primary" @click="download" >下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
+      <!-- 修改按钮，添加一个其他的按钮 */-->
+      <button data-v-264bddce="" type="button" class="el-button el-button--primary">
+              <!----><!----><span>修改</span></button>
+
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
     <List class="list" :lists="list" @getAllStu="getAllStu" />
