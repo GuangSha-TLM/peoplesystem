@@ -20,4 +20,5 @@ public interface FunctionMapper {
     void saveData(List<FunctionExcelVo> cachedDataList);
 
     int selectShake(@Param("shakeIdList")List<Stu> shakeIdList);
+
 }

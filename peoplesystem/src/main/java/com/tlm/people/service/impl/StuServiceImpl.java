@@ -85,6 +85,9 @@ public class StuServiceImpl implements StuService {
 
     }
 
+    /**
+     * 删除所有数据
+     */
     @Override
     public void deleteByAll() {
         stuDao.deleteByAll();

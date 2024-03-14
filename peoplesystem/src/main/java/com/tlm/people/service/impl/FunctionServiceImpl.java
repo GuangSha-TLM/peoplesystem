@@ -2,6 +2,7 @@ package com.tlm.people.service.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.tlm.people.dao.FunctionMapper;
+import com.tlm.people.dao.StuDao;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.bo.FunctionExcelBo;
 import com.tlm.people.entity.vo.FunctionExcelVo;
@@ -25,7 +26,8 @@ public class FunctionServiceImpl implements FunctionService {
 
     @Autowired
     private FunctionMapper functionMapper;
-
+    @Autowired
+    private StuDao stuDao;
     //上传
     @Override
     public void importData(MultipartFile multipartFile) {
@@ -118,11 +120,6 @@ public class FunctionServiceImpl implements FunctionService {
         }
     }
 
-    @Override
-    public List<Stu> shakeList(List<Long> ids) {
-
-        return null;
-    }
 
     public static void main(String[] args) {
         //写操作
