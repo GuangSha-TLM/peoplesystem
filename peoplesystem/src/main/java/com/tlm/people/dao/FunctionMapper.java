@@ -3,6 +3,7 @@ package com.tlm.people.dao;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.vo.FunctionExcelVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface FunctionMapper {
 
     //插入数据到数据库(上传文件)
     void saveData(List<FunctionExcelVo> cachedDataList);
+
+    int selectShake(@Param("shakeIdList")List<Stu> shakeIdList);
 }

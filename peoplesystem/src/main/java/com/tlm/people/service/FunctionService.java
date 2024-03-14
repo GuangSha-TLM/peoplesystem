@@ -1,9 +1,11 @@
 package com.tlm.people.service;
 
+import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.vo.ResponseVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public interface FunctionService {
 
@@ -12,4 +14,9 @@ public interface FunctionService {
 
     //文件导出（下载）
     void exportData(HttpServletResponse response);
+
+    //文件导出（下载）
+    void exportDataShake(HttpServletResponse response , List<Long> shakeIdList);
+
+    List<Stu> shakeList(List<Long> ids);
 }

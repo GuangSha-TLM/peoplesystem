@@ -81,6 +81,49 @@ public class FunctionServiceImpl implements FunctionService {
         }
     }
 
+    @Override
+    public void exportDataShake(HttpServletResponse response , List<Long> shakeIdList) {
+        //1.设置响应头信息和其他信息
+        try {
+            // 设置响应结果类型
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("utf-8");
+
+            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+            String fileName = URLEncoder.encode("分类数据", "UTF-8");
+
+            //设置响应头
+            response.setHeader("Content-disposition","attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Access-Control-Expose-Headers","Content-disposition");
+
+            //查询所有分类，返回list集合
+            List<Stu> stuList = functionMapper.findAll();
+
+            //最终数据list集合
+
+            List<FunctionExcelBo> functionExcelBoList = new ArrayList<>();
+
+            for (Stu stu : stuList) {
+                FunctionExcelBo functionExcelBo = new FunctionExcelBo();
+                BeanUtils.copyProperties(stu, functionExcelBo);
+                functionExcelBoList.add(functionExcelBo);
+            }
+
+            //写入操作
+            EasyExcel.write(response.getOutputStream(), FunctionExcelBo.class)
+                    .sheet("数据").doWrite(functionExcelBoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Stu> shakeList(List<Long> ids) {
+
+        return null;
+    }
+
     public static void main(String[] args) {
         //写操作
         {
