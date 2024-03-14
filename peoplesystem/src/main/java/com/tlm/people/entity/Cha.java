@@ -9,10 +9,11 @@ import java.util.Date;
  */
 public class Cha implements Serializable {
     private Long id;
+    private Long userId;
     private String channelName;
-    private String createBy;
+    private Long createBy;
     private Date createTime;
-    private String updateBy;
+    private Long updateBy;
     private Date updateTime;
     private Integer status;
     private Integer delFlag;
@@ -20,8 +21,9 @@ public class Cha implements Serializable {
     public Cha() {
     }
 
-    public Cha(Long id, String channelName, String createBy, Date createTime, String updateBy, Date updateTime, Integer status, Integer delFlag) {
+    public Cha(Long id, Long userId, String channelName, Long createBy, Date createTime, Long updateBy, Date updateTime, Integer status, Integer delFlag) {
         this.id = id;
+        this.userId = userId;
         this.channelName = channelName;
         this.createBy = createBy;
         this.createTime = createTime;
@@ -39,6 +41,14 @@ public class Cha implements Serializable {
         this.id = id;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getChannelName() {
         return channelName;
     }
@@ -47,11 +57,11 @@ public class Cha implements Serializable {
         this.channelName = channelName;
     }
 
-    public String getCreateBy() {
+    public Long getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(String createBy) {
+    public void setCreateBy(Long createBy) {
         this.createBy = createBy;
     }
 
@@ -63,11 +73,11 @@ public class Cha implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getUpdateBy() {
+    public Long getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(String updateBy) {
+    public void setUpdateBy(Long updateBy) {
         this.updateBy = updateBy;
     }
 
@@ -99,10 +109,11 @@ public class Cha implements Serializable {
     public String toString() {
         return "Cha{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", channelName='" + channelName + '\'' +
-                ", createBy='" + createBy + '\'' +
+                ", createBy=" + createBy +
                 ", createTime=" + createTime +
-                ", updateBy='" + updateBy + '\'' +
+                ", updateBy=" + updateBy +
                 ", updateTime=" + updateTime +
                 ", status=" + status +
                 ", delFlag=" + delFlag +
