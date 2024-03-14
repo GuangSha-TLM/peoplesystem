@@ -18,7 +18,7 @@ public interface FunctionMapper {
 
     //插入数据到数据库(上传文件)
     void saveData(List<FunctionExcelVo> cachedDataList);
-
+    //批量查询
     List<Stu> selectShake(List<Long> shakeIdList);
 
 }

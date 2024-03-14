@@ -37,7 +37,7 @@ public class FunctionController {
         functionService.exportData(response);
         return JSONArray.toJSONString(new ResponseVo("下载成功",null,"0x200"));
     }
-
+    //摇人文件下载
     @ApiOperation("摇人文件下载")
     @GetMapping("/exportDataShake")
     public String exportDataShake(HttpServletResponse response,@RequestParam List<Long> shakeIdList) {

@@ -81,12 +81,7 @@ public class FunctionServiceImpl implements FunctionService {
         }
     }
 
-//        for (Long id : shakeIdList) {
-//            Stu stu = new Stu();
-//            stu.setId(id);
-//            // 可能需要根据id从数据库中获取其他信息并设置到Stu对象中
-//            stuList.add(stu);
-//        }
+    //摇人后下载
     @Override
     public void exportDataShake(HttpServletResponse response,List<Long> shakeIdList) {
         try {

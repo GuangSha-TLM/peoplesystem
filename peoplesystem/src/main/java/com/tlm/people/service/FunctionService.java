@@ -16,7 +16,7 @@ public interface FunctionService {
     //文件导出（下载）
     void exportData(HttpServletResponse response);
 
-    //文件导出（下载）
+    //摇人后下载
     void exportDataShake(HttpServletResponse response , List<Long> shakeList);
 
 }
