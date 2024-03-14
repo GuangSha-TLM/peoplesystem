@@ -89,15 +89,9 @@ public class FunctionServiceImpl implements FunctionService {
 //        }
     @Override
     public void exportDataShake(HttpServletResponse response,List<Long> shakeIdList) {
-        List<Stu> stuList = new ArrayList<>();
-        List<Long> longs = functionMapper.selectShake(shakeIdList);
-        for (Long id : longs) {
-            Stu stu = new Stu();
-            stu.setId(id);
-            // 可能需要根据id从数据库中获取其他信息并设置到Stu对象中
-            stuList.add(stu);
-        }
         try {
+
+            List<Stu> stuList = functionMapper.selectShake(shakeIdList);
             // 设置响应头信息和其他信息
             response.setContentType("application/vnd.ms-excel");
             response.setCharacterEncoding("utf-8");
