@@ -1,18 +1,19 @@
 package com.tlm.people.controller;
 
 import com.alibaba.fastjson2.JSONArray;
+import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.result.Result;
 import com.tlm.people.service.FunctionService;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/tlm/people/function")
@@ -37,5 +38,10 @@ public class FunctionController {
         return JSONArray.toJSONString(new ResponseVo("下载成功",null,"0x200"));
     }
 
-
+    @ApiOperation("摇人文件下载")
+    @GetMapping("/exportDataShake")
+    public String exportDataShake(HttpServletResponse response,@RequestParam List<Long> shakeIdList) {
+        functionService.exportDataShake(response, shakeIdList);
+        return JSONArray.toJSONString(new ResponseVo("下载成功",null,"0x200"));
+    }
 }

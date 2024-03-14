@@ -6,7 +6,6 @@ import com.tlm.people.dao.StuDao;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.bo.FunctionExcelBo;
 import com.tlm.people.entity.vo.FunctionExcelVo;
-import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.FunctionService;
 import com.tlm.people.utils.ExcelListener;
 import com.tlm.people.utils.GuiguException;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,35 +81,43 @@ public class FunctionServiceImpl implements FunctionService {
         }
     }
 
+//        for (Long id : shakeIdList) {
+//            Stu stu = new Stu();
+//            stu.setId(id);
+//            // 可能需要根据id从数据库中获取其他信息并设置到Stu对象中
+//            stuList.add(stu);
+//        }
     @Override
-    public void exportDataShake(HttpServletResponse response , List<Long> shakeIdList) {
-        //1.设置响应头信息和其他信息
+    public void exportDataShake(HttpServletResponse response,List<Long> shakeIdList) {
+        List<Stu> stuList = new ArrayList<>();
+        List<Long> longs = functionMapper.selectShake(shakeIdList);
+        for (Long id : longs) {
+            Stu stu = new Stu();
+            stu.setId(id);
+            // 可能需要根据id从数据库中获取其他信息并设置到Stu对象中
+            stuList.add(stu);
+        }
         try {
-            // 设置响应结果类型
+            // 设置响应头信息和其他信息
             response.setContentType("application/vnd.ms-excel");
             response.setCharacterEncoding("utf-8");
 
-            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+            // 这里 URLEncoder.encode 可以防止中文乱码
             String fileName = URLEncoder.encode("分类数据", "UTF-8");
 
-            //设置响应头
-            response.setHeader("Content-disposition","attachment;filename=" + fileName + ".xlsx");
-            response.setHeader("Access-Control-Expose-Headers","Content-disposition");
+            // 设置响应头
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Access-Control-Expose-Headers", "Content-disposition");
 
-            //查询所有分类，返回list集合
-            List<Stu> stuList = functionMapper.findAll();
-
-            //最终数据list集合
-
+            // 将查询结果转换为 Excel 数据
             List<FunctionExcelBo> functionExcelBoList = new ArrayList<>();
-
             for (Stu stu : stuList) {
                 FunctionExcelBo functionExcelBo = new FunctionExcelBo();
                 BeanUtils.copyProperties(stu, functionExcelBo);
                 functionExcelBoList.add(functionExcelBo);
             }
 
-            //写入操作
+            // 写入 Excel 数据到响应输出流
             EasyExcel.write(response.getOutputStream(), FunctionExcelBo.class)
                     .sheet("数据").doWrite(functionExcelBoList);
         } catch (Exception e) {
@@ -119,7 +125,6 @@ public class FunctionServiceImpl implements FunctionService {
             throw new RuntimeException(e);
         }
     }
-
 
     public static void main(String[] args) {
         //写操作
