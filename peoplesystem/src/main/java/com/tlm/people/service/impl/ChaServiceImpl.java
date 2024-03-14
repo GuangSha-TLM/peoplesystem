@@ -18,6 +18,7 @@ public class ChaServiceImpl implements ChaService {
 
     @Override
     public Cha insertByCha(Cha cha) {
+
         this.chaDao.insertByCha(cha);
         return cha;
     }

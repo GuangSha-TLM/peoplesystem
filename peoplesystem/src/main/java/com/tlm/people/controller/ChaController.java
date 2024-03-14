@@ -20,17 +20,17 @@ public class ChaController {
     }
 
     @PostMapping("/insertByCha")
-    public ResponseEntity<Cha> insertByCha(Cha cha) {
+    public ResponseEntity<Cha> insertByCha(@RequestBody Cha cha) {
         return ResponseEntity.ok(this.chaService.insertByCha(cha));
     }
 
     @PutMapping("/updateByCha")
-    public ResponseEntity<Cha> updateByCha(Cha cha) {
+    public ResponseEntity<Cha> updateByCha(@RequestBody Cha cha) {
         return ResponseEntity.ok(this.chaService.updateByCha(cha));
     }
 
     @DeleteMapping("/deleteByChaId")
-    public ResponseEntity<Boolean> deleteByChaId(Long id) {
+    public ResponseEntity<Boolean> deleteByChaId(@RequestBody Long id) {
         return ResponseEntity.ok(this.chaService.delecteByChaId(id));
     }
 }
