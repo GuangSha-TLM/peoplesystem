@@ -32,7 +32,7 @@ public class StuController {
     @GetMapping("/findAll")
     public String findAll() {
         List<Stu> stuList = stuService.findAll();
-        return JSONArray.toJSONString(new ResponseVo("查询成功",stuList,"0x200"));
+        return JSONArray.toJSONString(new ResponseVo("已删除所以数据",stuList,"0x200"));
     }
 
     //修改状态
