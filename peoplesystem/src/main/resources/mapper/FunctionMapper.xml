@@ -35,7 +35,7 @@
     <!--批量查询-->
     <select id="selectShake" resultMap="shakeById" parameterType="java.util.List">
         select * from student where id in
-        <foreach collection="list" item="id" open="(" separator="," close=")">
+        <foreach collection="list" item="id"  separator=",">
             #{id}
         </foreach>
     </select>
