@@ -19,7 +19,7 @@ id,stu_id,stu_name,status
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="StuMap">
         select
-idstu_idstatuscreatetimeupdatetime
+id,stu_id,status,createtime,updatetime
         from student
         <where>
             <if test="id != null">

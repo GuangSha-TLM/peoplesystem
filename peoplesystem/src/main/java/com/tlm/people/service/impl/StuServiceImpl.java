@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * (Stu)表服务实现类
@@ -80,6 +81,7 @@ public class StuServiceImpl implements StuService {
         //stream流优化
         stuIdList.stream()
                 .map(stuDao :: queryById)
+                .filter(Objects:: nonNull)
                 .peek(stu -> ((Stu) stu).setStatus(((Stu) stu).getStatus() == 0 ? 1 : 0))
                 .forEach(stuDao :: updateStatus);
 
