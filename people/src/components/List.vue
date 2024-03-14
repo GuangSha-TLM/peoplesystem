@@ -44,7 +44,7 @@ export default {
     data() {
         return {
             // multipleSelection: [],
-            isList:false
+            isList: false
         }
     },
     mounted() {
@@ -71,7 +71,7 @@ export default {
                 var id = val[index].stuId;
                 IdList.push(id);
             }
-            this.$emit('multipleSelection',IdList)
+            this.$emit('multipleSelection', IdList)
         },
         // toggleSelection() {
         //     resUpdateStatus(this.multipleSelection).then((res) => {
@@ -92,14 +92,12 @@ export default {
         //         }
         //     })
         // },
-        go(){
+        go() {
             this.$router.go(-2)
         },
         //抽取之后的下载功能的方法
         //需要获取抽取到人的id
-
         download() {
-
             resDownload()
                 .then(response => {
                     if (response.status === 200) {
@@ -121,7 +119,7 @@ export default {
             type: Array,
             default: () => []
         },
-        multipleSelection:{
+        multipleSelection: {
             type: Array,
             default: () => []
         }
@@ -149,22 +147,23 @@ export default {
     background-color: #abc1ee;
     border: 0;
 }
+
 ::v-deep .el-table__cell {
     padding: 10px 0;
 }
-::v-deep .cell{
-    padding-left: 0 ;
+
+::v-deep .cell {
+    padding-left: 0;
     text-align: center;
 }
 
 // ::v-deep .el-button{
 //   background-color: #abc1ee;
 // }
-.pc{
-    
-}
-.mobile{
-    .arrow-left{
+.pc {}
+
+.mobile {
+    .arrow-left {
         background-color: #fff;
         color: #999;
     }

@@ -17,6 +17,8 @@
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
       <el-button type="primary" @click="toggleSelection()">修改</el-button>
+      <el-button type="primary" @click="deleteAll()">删除</el-button>
+      
 
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
@@ -49,7 +51,7 @@
 </template>
 
 <script>
-import { resUpdateStatus } from '@/api/user'
+import { resUpdateStatus ,deleteAll } from '@/api/user'
 import List from '@/components/List.vue';
 import { resGetStu, resUpload, resDownload } from '@/api/user';
 
@@ -75,8 +77,7 @@ export default {
   methods: {
     getMultipleSelection(multipleSelection){
       this.multipleSelection = multipleSelection
-      console.log(this.multipleSelection);
-       },
+    },
     getAllStu() {
       resGetStu().then((res) => {
         if (res.data.code === '0x200') {
@@ -170,12 +171,31 @@ export default {
         }
       })
     },
-    //获取子类的数据
-    getListData(data){
-      console.log(data);
-    }
-
+    //删除
+    deleteAll(){
+      deleteAll().then((res) => {
+        console.log(res);
+        if (res.data.code === '0x200') {
+          this.$message({
+            showClose: true,
+            message: '删除成功!',
+            type: 'success'
+          });
+          this.getAllStu()
+        } else {
+          this.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          });
+        }
+      })
   },
+  
+  },
+ 
+
+    
 };
 </script>
 
