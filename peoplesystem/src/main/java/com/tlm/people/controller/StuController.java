@@ -42,9 +42,14 @@ public class StuController {
         return JSONArray.toJSONString(new ResponseVo("修改成功",null,"0x200"));
     }
 
+    /**
+     * 批量删除
+     * @param deleteIdList
+     * @return
+     */
     @PostMapping("/deleteByAll")
-    public String deleteByAll(){
-        stuService.deleteByAll();
+    public String deleteByAll(@RequestParam List<Long> deleteIdList){
+        stuService.deleteByAll(deleteIdList);
         return JSONArray.toJSONString(new ResponseVo("已全部删除",null,"0x200"));
     }
     /**

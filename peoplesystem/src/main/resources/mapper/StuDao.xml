@@ -133,9 +133,14 @@ stu_id = values(stu_id)status = values(status)createtime = values(createtime)upd
     <delete id="deleteById">
         delete from stu where id = #{id}
     </delete>
-    <!--删除-->
-    <delete id="deleteByAll">
-        TRUNCATE TABLE student
+    <!--批量删除-->
+    <delete id="deleteByAll" parameterType="java.util.List">
+        delete from student
+            where id in
+        <foreach collection="list" item="id" open="("
+                 close=")" separator=",">
+            #{id}
+        </foreach>
     </delete>
 </mapper>
 

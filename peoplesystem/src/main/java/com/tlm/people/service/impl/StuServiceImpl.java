@@ -88,11 +88,12 @@ public class StuServiceImpl implements StuService {
     }
 
     /**
-     * 删除所有数据
+     * 批量删除
+     * @param deleteIdList
      */
     @Override
-    public void deleteByAll() {
-        stuDao.deleteByAll();
+    public void deleteByAll(List<Long> deleteIdList) {
+        stuDao.deleteByAll(deleteIdList);
     }
 
 }

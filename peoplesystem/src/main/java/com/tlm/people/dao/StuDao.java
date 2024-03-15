@@ -88,7 +88,10 @@ public interface StuDao {
     //修改状态
     void updateStatus(Stu stu);
 
-
-    void deleteByAll();
+    /**
+     * 批量删除
+     * @param deleteIdList
+     */
+    void deleteByAll(List<Long> deleteIdList);
 }
 

@@ -52,7 +52,8 @@ public interface StuService {
     void updateStatus(List<Long> stuIdList);
 
     /**
-     * 删除所有数据
+     * 批量删除
+     * @param deleteList
      */
-    void deleteByAll();
+    void deleteByAll(List<Long> deleteList);
 }
