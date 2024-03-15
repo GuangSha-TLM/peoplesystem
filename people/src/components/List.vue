@@ -28,7 +28,7 @@
                     <el-button type="primary" @click="toggleSelection()">修改</el-button>
                 </template> -->
                 <template slot-scope="scope">
-                    {{ scope.row.status === 1 ? '未选择' : "已选择" }}
+                    {{ scope.row.status === 0 ? '未选择' : "已选择" }}
                 </template>
 
             </el-table-column>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-
+import {download} from '@/api/user'
 export default {
     data() {
         return {
@@ -68,7 +68,7 @@ export default {
         handleSelectionChange(val) {
             var IdList = []
             for (let index = 0; index < val.length; index++) {
-                var id = val[index].stuId;
+                var id = val[index].id;
                 IdList.push(id);
             }
             this.$emit('multipleSelection', IdList)
@@ -98,8 +98,14 @@ export default {
         //抽取之后的下载功能的方法
         //需要获取抽取到人的id
         download() {
-            resDownload()
+            var IdList = []
+            for (let index = 0; index < this.list.length; index++) {
+                var id = this.list[index].stuId;
+                IdList.push(id);
+            }
+            download(IdList)
                 .then(response => {
+                    console.log(response);
                     if (response.status === 200) {
                         const fileName = response.headers["content-disposition"].split(";")[1].split("=")[1]
                         // console.log(decodeURIComponent(fileName));
@@ -137,7 +143,8 @@ export default {
                 return this.lists;
             }
             return []
-        }
+        },
+
     }
 }
 </script>
