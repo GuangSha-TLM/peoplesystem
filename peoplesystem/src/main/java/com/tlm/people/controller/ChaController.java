@@ -14,8 +14,8 @@ public class ChaController {
     @Resource
     private ChaService chaService;
 
-    @GetMapping("/selectByChaId/{id}")
-    public ResponseEntity<Cha> selectByChaId(@PathVariable("id") Long id){
+    @PostMapping("/selectByChaId")
+    public ResponseEntity<Cha> selectByChaId(@RequestParam Long id){
         return ResponseEntity.ok(this.chaService.selectByChaId(id));
     }
 
