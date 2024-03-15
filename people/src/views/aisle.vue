@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-15 08:10:55
- * @LastEditTime: 2024-03-15 09:21:43
+ * @LastEditTime: 2024-03-15 16:53:32
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/aisle.vue
@@ -14,35 +14,38 @@
             <h1>请选择通道</h1>
         </div>
         <div class="butList">
-            <el-button type="primary" round v-for="(item, index) in buttonList" :key="index"
-                @click="handleClick(item.value)">
-                {{ item.label }}
+            <el-button type="primary" round v-for="item in buttonList" :key="item.id" @click="handleClick(item.id)">
+                {{ item.channelName }}
             </el-button>
         </div>
     </div>
 </template>
 
 <script>
-
+import { getAllChannel } from '@/api/channel'
 export default {
     name: 'home',
     data() {
         return {
-            buttonList: [
-                { value: 'stu', label: '学生' },
-                { value: 'teacher', label: '教师' }
-            ]
+            buttonList: []
         };
     },
+    mounted() {
+        this.getAllChannel()
+    },
     methods: {
+        getAllChannel() {
+            getAllChannel().then(res => {
+                this.buttonList = res.data.data
+                console.log(this.buttonList)
+            })
+        },
         handleClick(value) {
             console.log(`点击了按钮: ${value}`);
-            // 在这里根据value来处理点击事件，比如发送请求  
-            // 例如，你可以根据value来构建URL并发送请求  
-            // this.sendRequest(value);  
         }
     },
-};
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -53,7 +56,7 @@ export default {
 
 .pc {
     height: 100%;
-    
+
     /*
         这里写PC端的样式
       */
@@ -78,6 +81,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         margin: 0 auto;
+
         .el-button {
             width: 100%;
             margin-left: 0;
@@ -117,6 +121,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         margin: 0 auto;
+
         .el-button {
             width: 100%;
             margin-left: 0;
