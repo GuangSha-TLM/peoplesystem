@@ -4,12 +4,13 @@
     <resultMap type="com.tlm.people.entity.Cha" id="StuMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="channelName" column="channel_name" jdbcType="INTEGER"/>
-        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="INTEGER"/>
     </resultMap>
 
     <select id="selectByChaId" resultMap="StuMap">
         select
-            id,channel_name,status
+            id,channel_name,create_by,create_time
         from channel
         where id = #{id}
         limit 1
@@ -27,8 +28,8 @@
     </update>
 
     <insert id="insertByCha" parameterType="com.tlm.people.entity.Cha">
-        insert into channel (channel_name,create_by,create_time,status)
-        values (#{channelName},0,#{createTime},0)
+        insert into channel (channel_name,create_by,create_time)
+        values (#{channelName},0,#{createTime})
     </insert>
 
     <delete id="deleteByChaId">

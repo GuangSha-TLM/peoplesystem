@@ -30,7 +30,7 @@ public class ChaController {
     }
 
     @DeleteMapping("/deleteByChaId")
-    public ResponseEntity<Boolean> deleteByChaId(@RequestBody Long id) {
+    public ResponseEntity<Boolean> deleteByChaId(@RequestParam Long id) {
         return ResponseEntity.ok(this.chaService.delecteByChaId(id));
     }
 }

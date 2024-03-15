@@ -15,17 +15,15 @@ public class Cha implements Serializable {
     private Long createBy;
     @JsonFormat(pattern = "yyyy-MM-HH",timezone = "GMT+8")
     private Date createTime;
-    private Integer status;
 
     public Cha() {
     }
 
-    public Cha(Long id, String channelName, Long createBy, Date createTime, Integer status) {
+    public Cha(Long id, String channelName, Long createBy, Date createTime) {
         this.id = id;
         this.channelName = channelName;
         this.createBy = createBy;
         this.createTime = createTime;
-        this.status = status;
     }
 
     public Long getId() {
@@ -60,14 +58,6 @@ public class Cha implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "Cha{" +
@@ -75,7 +65,6 @@ public class Cha implements Serializable {
                 ", channelName='" + channelName + '\'' +
                 ", createBy=" + createBy +
                 ", createTime=" + createTime +
-                ", status=" + status +
                 '}';
     }
 }
