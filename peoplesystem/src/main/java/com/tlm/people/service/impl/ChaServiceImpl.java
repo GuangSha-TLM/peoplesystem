@@ -6,6 +6,7 @@ import com.tlm.people.service.ChaService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 public class ChaServiceImpl implements ChaService {
@@ -18,7 +19,7 @@ public class ChaServiceImpl implements ChaService {
 
     @Override
     public Cha insertByCha(Cha cha) {
-
+        cha.setCreateTime(new Date());
         this.chaDao.insertByCha(cha);
         return cha;
     }

@@ -3,7 +3,6 @@
 <mapper namespace="com.tlm.people.dao.ChaDao">
     <resultMap type="com.tlm.people.entity.Cha" id="StuMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="channelName" column="channel_name" jdbcType="INTEGER"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
@@ -36,8 +35,8 @@
     </update>
 
     <insert id="insertByCha" parameterType="com.tlm.people.entity.Cha">
-        insert into channel (user_id,channel_name,create_by,create_time,status,del_flag)
-        values (#{userId}#{channelName}#{createBy}#{createTime}#{status}#{delFlag})
+        insert into channel (channel_name,create_by,create_time,status)
+        values (#{channelName},0,#{createTime},0)
     </insert>
 
     <delete id="deleteByChaId">

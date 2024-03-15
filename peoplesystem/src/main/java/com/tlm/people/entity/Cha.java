@@ -1,5 +1,7 @@
 package com.tlm.people.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,28 +11,21 @@ import java.util.Date;
  */
 public class Cha implements Serializable {
     private Long id;
-    private Long userId;
     private String channelName;
     private Long createBy;
+    @JsonFormat(pattern = "yyyy-MM-HH",timezone = "GMT+8")
     private Date createTime;
-    private Long updateBy;
-    private Date updateTime;
     private Integer status;
-    private Integer delFlag;
 
     public Cha() {
     }
 
-    public Cha(Long id, Long userId, String channelName, Long createBy, Date createTime, Long updateBy, Date updateTime, Integer status, Integer delFlag) {
+    public Cha(Long id, String channelName, Long createBy, Date createTime, Integer status) {
         this.id = id;
-        this.userId = userId;
         this.channelName = channelName;
         this.createBy = createBy;
         this.createTime = createTime;
-        this.updateBy = updateBy;
-        this.updateTime = updateTime;
         this.status = status;
-        this.delFlag = delFlag;
     }
 
     public Long getId() {
@@ -39,14 +34,6 @@ public class Cha implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getChannelName() {
@@ -73,22 +60,6 @@ public class Cha implements Serializable {
         this.createTime = createTime;
     }
 
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -97,26 +68,14 @@ public class Cha implements Serializable {
         this.status = status;
     }
 
-    public Integer getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public String toString() {
         return "Cha{" +
                 "id=" + id +
-                ", userId=" + userId +
                 ", channelName='" + channelName + '\'' +
                 ", createBy=" + createBy +
                 ", createTime=" + createTime +
-                ", updateBy=" + updateBy +
-                ", updateTime=" + updateTime +
                 ", status=" + status +
-                ", delFlag=" + delFlag +
                 '}';
     }
 }
