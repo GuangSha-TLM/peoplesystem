@@ -161,6 +161,14 @@ export default {
     },
     //修改接口
     toggleSelection() {
+      if (this.multipleSelection.length <= 0) {
+        this.$message({
+            showClose: true,
+            message: '请选择数据后在修改!',
+            type: 'error'
+          });
+          return;
+      }
       resUpdateStatus(this.multipleSelection).then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
@@ -181,6 +189,7 @@ export default {
     },
     //删除
     deleteAll() {
+      
       deleteAll().then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
