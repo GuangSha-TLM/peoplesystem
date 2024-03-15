@@ -16,7 +16,7 @@
     </select>
 
     <update id="updateByCha">
-        update user
+        update channel
         <set>
             <if test="channelName != null and channelName != ''">
                 channel_name = #{channelName},
