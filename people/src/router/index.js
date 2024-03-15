@@ -11,7 +11,7 @@ const routes = [
     name: 'login',
     component: () => import(/* webpackChunkName: "about" */ '../views/login.vue')
   },
-  
+
   {
     path: '/register',
     name: 'register',
@@ -39,11 +39,17 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path:'/list',
+    path: '/list',
     name: 'list',
-    component:() => import(/* webpackChunkName: "about" */ '../components/List.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../components/List.vue'),
     meta: { requiresAuth: true }
-},
+  },
+  {
+    path: '/aisle',
+    name: 'aisle',
+    component: () => import(/* webpackChunkName: "about" */ '../views/aisle.vue'),
+    meta: { requiresAuth: true }
+  },
 ]
 
 

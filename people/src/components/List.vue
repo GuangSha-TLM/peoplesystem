@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 09:47:20
- * @LastEditTime: 2024-03-13 14:44:57
+ * @LastEditTime: 2024-03-15 16:25:55
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/components/List.vue
@@ -10,36 +10,45 @@
 
 <template>
     <div :class="{ pc: !$isMobile, mobile: $isMobile }">
-        <el-button type="primary" class="arrow-left" v-if="isList" icon="el-icon-arrow-left" @click="go">上一页
-        </el-button>
-        <!-- 1.**下载按钮 -->
-        <el-button type="primary" @click="download" v-if="isList">下载<i
-                class="el-icon-download el-icon--right"></i></el-button>
+        <div class="pageHead">
+            <el-button type="primary" class="arrow-left" v-if="isList" icon="el-icon-arrow-left" @click="go">上一页
+            </el-button>
+        </div>
 
-        <el-table :data="list" height="100%" border @selection-change="handleSelectionChange">
-            <el-table-column type="selection" v-if="!isList">
-            </el-table-column>
-            <el-table-column prop="stuId" label="序号">
-            </el-table-column>
-            <el-table-column prop="stuName" label="姓名">
-            </el-table-column>
-            <el-table-column prop="status" label="状态">
-                <!-- <template slot="header" slot-scope="scope">
+        <div class="container">
+            <div class="sectorization">
+                <!-- 1.**下载按钮 -->
+                <el-button type="primary" @click="download" v-if="isList">下载<i
+                        class="el-icon-download el-icon--right"></i></el-button>
+
+            </div>
+
+            <el-table :data="list" height="100%" border @selection-change="handleSelectionChange">
+                <el-table-column type="selection" v-if="!isList">
+                </el-table-column>
+                <el-table-column prop="stuId" label="序号">
+                </el-table-column>
+                <el-table-column prop="stuName" label="姓名">
+                </el-table-column>
+                <el-table-column prop="status" label="状态">
+                    <!-- <template slot="header" slot-scope="scope">
                     <el-button type="primary" @click="toggleSelection()">修改</el-button>
                 </template> -->
-                <template slot-scope="scope">
-                    {{ scope.row.status === 0 ? '未选择' : "已选择" }}
-                </template>
+                    <template slot-scope="scope">
+                        {{ scope.row.status === 0 ? '未选择' : "已选择" }}
+                    </template>
 
-            </el-table-column>
+                </el-table-column>
 
-        </el-table>
+            </el-table>
+        </div>
+
     </div>
 
 </template>
 
 <script>
-import {download} from '@/api/user'
+import { download } from '@/api/user'
 export default {
     data() {
         return {
@@ -167,12 +176,56 @@ export default {
 // ::v-deep .el-button{
 //   background-color: #abc1ee;
 // }
-.pc {}
+.pageHead {
+    margin-bottom: 5px
+}
+
+.pc {
+    height: 100%;
+    /*
+      这里写PC端的样式
+    */
+    width: 90%;
+    margin: 0 auto;
+    .pageHead{
+        display: none;
+    }
+    .container {
+        width: 95%;
+        margin: 0 auto;
+        height: 100%;
+        .sectorization{
+            margin: 20Px 0;
+        }
+    }
+
+}
 
 .mobile {
-    .arrow-left {
-        background-color: #fff;
-        color: #999;
+    height: 100%;
+    /*
+      这里写mobile端的样式
+    */
+    width: 100%;
+
+    .pageHead {
+        width: 100%;
+
+        .arrow-left {
+            background-color: #fff;
+            color: #999;
+        }
     }
+
+    .container {
+        width: 95%;
+        margin: 0 auto;
+        height: 100%;
+        .sectorization{
+            margin: 20px 0;
+        }
+    }
+
+
 }
 </style>
