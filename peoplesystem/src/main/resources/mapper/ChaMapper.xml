@@ -16,6 +16,12 @@
         limit 1
     </select>
 
+    <select id="findAll" resultType="com.tlm.people.entity.Cha">
+        select
+            id,channel_name,create_by,create_time
+        from
+            channel
+    </select>
     <update id="updateByCha">
         update channel
         <set>

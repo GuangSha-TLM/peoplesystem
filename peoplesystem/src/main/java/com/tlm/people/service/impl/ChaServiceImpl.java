@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ChaServiceImpl implements ChaService {
@@ -15,6 +16,12 @@ public class ChaServiceImpl implements ChaService {
     @Override
     public Cha selectByChaId(Long id) {
         return this.chaDao.selectByChaId(id);
+    }
+
+    @Override
+    public List<Cha> findAll() {
+        List<Cha> chaList = chaDao.findAll();
+        return chaList;
     }
 
     @Override
