@@ -2,6 +2,7 @@ package com.tlm.people.service.impl;
 
 import com.tlm.people.dao.ChaDao;
 import com.tlm.people.entity.Cha;
+import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.service.ChaService;
 import org.springframework.stereotype.Service;
 

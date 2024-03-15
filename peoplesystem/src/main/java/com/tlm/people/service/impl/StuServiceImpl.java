@@ -1,5 +1,6 @@
 package com.tlm.people.service.impl;
 
+import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.dao.StuDao;
 import com.tlm.people.service.StuService;
@@ -41,6 +42,8 @@ public class StuServiceImpl implements StuService {
     @Override
     public Stu insert(Stu stu) {
         this.stuDao.insert(stu);
+        ChaWithStu chaWithStu = new ChaWithStu();
+        chaWithStu.getStudent_id(stu.getId());
         return stu;
     }
 
