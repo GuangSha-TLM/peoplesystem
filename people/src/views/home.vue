@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-15 15:58:34
+ * @LastEditTime: 2024-03-16 20:07:58
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -15,13 +15,13 @@
       <div @click="drawer = true" class="funtionModel">
         <i class="el-icon-s-unfold el-icon--right"></i>
       </div>
-      <el-button type="primary" @click="toggleSelection()">修改 <i class="el-icon-edit el-icon--right"></i></el-button>
+      <el-button type="primary" :disabled="isButtonDisabled" @click="toggleSelection()">修改 <i
+          class="el-icon-edit el-icon--right"></i></el-button>
       <el-button type="primary" @click="deleteAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
 
     <List class="list" :lists="list" @getAllStu="getAllStu" @multipleSelection="getMultipleSelection" />
-
 
     <!-- 按钮抽屉 -->
     <el-drawer title="我是标题" :visible.sync="drawer" :direction="'ltr'" :with-header="false" class="modle">
@@ -44,7 +44,6 @@
         <el-button type="primary" @click="confirmUpload">确 定</el-button>
       </span>
     </el-dialog>
-
 
     <!--提示用户excel的格式  -->
     <el-dialog title="提示" :visible.sync="exceltype" center :show-close="false">
@@ -74,7 +73,12 @@ export default {
       fileList: [],
       exceltype: false,
       multipleSelection: [],
-      drawer: false
+      drawer: false,
+      isButtonDisabled: false,
+      ws: {},
+      socket: null,
+      webSocketIp: "127.0.0.1",
+      webSocketPort: 7111,
     };
   },
 
@@ -163,33 +167,60 @@ export default {
     toggleSelection() {
       if (this.multipleSelection.length <= 0) {
         this.$message({
-            showClose: true,
-            message: '请选择数据后在修改!',
-            type: 'error'
-          });
-          return;
+          showClose: true,
+          message: '请选择数据后在修改!',
+          type: 'error'
+        });
+        return;
       }
-      resUpdateStatus(this.multipleSelection).then((res) => {
-        console.log(res);
-        if (res.data.code === '0x200') {
-          this.$message({
-            showClose: true,
-            message: '修改成功!',
-            type: 'success'
-          });
-          this.getAllStu()
-        } else {
-          this.$message({
-            showClose: true,
-            message: res.data.message,
-            type: 'error'
-          });
+      this.isButtonDisabled = true;
+
+      this.socket = new WebSocket("ws://" + this.webSocketIp + ":" + this.webSocketPort + `/websocket`);
+      console.log(this.socket);
+      this.socket.onopen = () => {
+        console.log("websocket连接成功");
+        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+          this.socket.send('');
         }
-      })
+        resUpdateStatus(this.multipleSelection).then((res) => {
+          try {
+            if (res.data.code === '0x200') {
+              this.$message({
+                showClose: true,
+                message: '修改成功!',
+                type: 'success'
+              });
+              this.getAllStu()
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.data.message,
+                type: 'error'
+              });
+            }
+            this.isButtonDisabled = false;
+
+          } catch (error) {
+            this.$message({
+              showClose: true,
+              message: '请求失败: ' + (error.message || '未知错误'),
+              type: 'error'
+            });
+            // 重新启用按钮  
+            this.isButtonDisabled = false;
+          }
+          this.socket.close()
+        })
+      }
+      this.socket.onmessage = (res) => {
+        console.log(res.data);
+      }
+      
+
     },
     //删除
     deleteAll() {
-      
+
       deleteAll().then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
@@ -254,11 +285,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .title {
-        font-size: 50Px;
-        /* font-weight: 500; */
-        margin: 30Px auto;
-      }
+      font-size: 50Px;
+      /* font-weight: 500; */
+      margin: 30Px auto;
+    }
+
     button {
       width: 90%;
       margin: 20Px 0;
@@ -308,11 +341,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .title {
-        font-size: 20px;
-        /* font-weight: 500; */
-        margin: 30Px auto;
-      }
+      font-size: 20px;
+      /* font-weight: 500; */
+      margin: 30Px auto;
+    }
+
     button {
       margin: 10px 0;
     }

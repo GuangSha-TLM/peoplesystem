@@ -22,6 +22,7 @@ public class ChaWithStuController {
     @Resource
     private ChaWithStuDao chaWithStuDao;
 
+
     /**
      * 通过id查询通道从而查询名单
      * @param channelId

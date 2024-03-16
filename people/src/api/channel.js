@@ -10,3 +10,10 @@
 import request from "@/utils/request";
 
 export const getAllChannel = () => request({ url: '/tlm/people/cha/findAll', method: 'get' });
+
+export const selectChannelByChaId = (id) => request({ url: '/tlm/people/cha/selectByChaId', method: 'post' ,params:{id:id}});
+
+export const chaWithStuByChaId = (channelId) => request({ url: `/tlm/people/chaWithStu/${channelId}/students`, method: 'get' });
+
+export const insertByCha = (channelId) => request({ url: `/tlm/people/cha/insertByCha`, method: 'post' });
+

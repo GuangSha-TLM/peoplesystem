@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-15 08:10:55
- * @LastEditTime: 2024-03-15 16:53:32
+ * @LastEditTime: 2024-03-16 14:42:38
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/aisle.vue
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { getAllChannel } from '@/api/channel'
+import { getAllChannel ,selectChannelByChaId ,chaWithStuByChaId} from '@/api/channel'
 export default {
     name: 'home',
     data() {
@@ -41,7 +41,10 @@ export default {
             })
         },
         handleClick(value) {
-            console.log(`点击了按钮: ${value}`);
+            console.log(value);
+            chaWithStuByChaId(value).then((res=>{
+                console.log(res);
+            }))
         }
     },
 

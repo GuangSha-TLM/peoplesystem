@@ -8,12 +8,14 @@ module.exports = defineConfig({
 
   //配置代理跨域
   devServer: {
+    
     proxy: {
       "/api": {
         target: "http://localhost:7111",
         pathRewrite: {
           '^/api': '/'
-        }
+        },
+        // ws:true
 
       },
     },
