@@ -4,11 +4,15 @@ import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.dao.StuDao;
 import com.tlm.people.service.StuService;
+import com.tlm.people.websocket.ProgressWebSocket;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * (Stu)表服务实现类
@@ -80,12 +84,56 @@ public class StuServiceImpl implements StuService {
     public void updateStatus(List<Long> stuIdList) {
 
         //stream流优化
-        stuIdList.stream()
-                .map(stuDao :: queryById)
-                .filter(Objects:: nonNull)
-                .peek(stu -> ((Stu) stu).setStatus(((Stu) stu).getStatus() == 0 ? 1 : 0))
-                .forEach(stuDao :: updateStatus);
+//        stuIdList.stream()
+//                .map(stuDao :: queryById)
+//                .peek(stu -> stu.setStatus(stu.getStatus() == 0 ? 1 : 0))
+//                .forEach(stuDao :: updateStatus);
 
+        //开两个线程对象
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+        // 更新学生状态线程
+        executorService.submit(() -> {
+
+            int totalStudents = stuIdList.size();
+            AtomicInteger completedCount = new AtomicInteger(0);
+
+            stuIdList.forEach(studentId -> {
+                Stu student = stuDao.queryById(studentId); // 假设 stuDao 已经正确初始化
+                if (student != null) {
+                    student.setStatus(student.getStatus() == 0 ? 1 : 0);
+                    stuDao.updateStatus(student);
+                    completedCount.incrementAndGet();
+                }
+
+                // 计算进度并返回给前端
+                // 通过WebSocket将进度信息返回给前端
+                double progress = (double) completedCount.get() / totalStudents * 100;
+                ProgressWebSocket.sendProgressUpdate(progress);
+                System.out.println("Progress: " + progress + "%");
+
+            });
+        });
+
+        // 实时查询学生状态线程
+        executorService.submit(() -> {
+            try {
+                while (true) {
+                    stuIdList.forEach(studentId -> {
+                        Stu student = stuDao.queryById(studentId); // 假设 stuDao 已经正确初始化
+                        if (student != null) {
+                            System.out.println("Student " + studentId + " status: " + student.getStatus());
+                        }
+                    });
+                    Thread.sleep(2000); // 每2秒查询一次状态
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // 关闭线程池
+        executorService.shutdown();
     }
 
     /**
