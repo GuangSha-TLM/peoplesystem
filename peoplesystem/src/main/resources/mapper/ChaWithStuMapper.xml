@@ -11,7 +11,7 @@
     <select id="getStudentsByChannelId" resultMap="ChannelAndStudentsResultMap">
         SELECT
             s.id AS student_id,
-            s.stu_id
+            s.stu_id,
             s.stu_name,
             s.status
         FROM
@@ -23,11 +23,11 @@
         WHERE
             c.id = #{channelId}
     </select>
-    <select id="getStudentIdsByChannelId" resultType="Long">
-        SELECT student_id
-        FROM table3
-        WHERE channel_id = #{channelId}
-    </select>
+<!--    <select id="getStudentIdsByChannelId" resultType="Long">-->
+<!--        SELECT student_id-->
+<!--        FROM table3-->
+<!--        WHERE channel_id = #{channelId}-->
+<!--    </select>-->
     <insert id="addChaWithStu" parameterType="com.tlm.people.entity.ChaWithStu">
         insert into channel_student (channel_id,student_id)
         values (#{channelId},#{studentId})

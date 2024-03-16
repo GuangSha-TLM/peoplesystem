@@ -1,6 +1,6 @@
 package com.tlm.people.dao;
 
-import com.tlm.people.entity.Cha;
+
 import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
 import org.apache.ibatis.annotations.Mapper;

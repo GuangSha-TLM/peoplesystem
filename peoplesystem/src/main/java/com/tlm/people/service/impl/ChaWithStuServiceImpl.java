@@ -36,8 +36,9 @@ public class ChaWithStuServiceImpl implements ChaWithStuService {
         if (studentIds.isEmpty()) {
             return Collections.emptyList();
         }
-        return chaWithStuDao.getStudentsByChannelId(channelId);
+        return chaWithStuDao.getStudentsByChannelId(channelId);  // 修正此处返回值
     }
+
 
     /**
      * 关联表格添加
