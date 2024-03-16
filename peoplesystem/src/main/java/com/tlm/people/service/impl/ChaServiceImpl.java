@@ -4,6 +4,7 @@ import com.tlm.people.dao.ChaDao;
 import com.tlm.people.entity.Cha;
 import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.service.ChaService;
+import com.tlm.people.service.ChaWithStuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +15,8 @@ import java.util.List;
 public class ChaServiceImpl implements ChaService {
     @Resource
     private ChaDao chaDao;
+    @Resource
+    private ChaWithStuService chaWithStuService;
     @Override
     public Cha selectByChaId(Long id) {
         return this.chaDao.selectByChaId(id);

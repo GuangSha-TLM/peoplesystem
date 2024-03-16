@@ -7,16 +7,15 @@ import java.io.Serializable;
  */
 public class ChaWithStu implements Serializable {
     private Long id;
-    private Long channel_id;
-    private Long student_id;
+    private Long channelId;
+    private Long studentId;
 
-    public ChaWithStu() {
-    }
-
-    public ChaWithStu(Long id, Long channel_id, Long student_id) {
+    public ChaWithStu(Long id, Long channelId, Long studentId) {
         this.id = id;
-        this.channel_id = channel_id;
-        this.student_id = student_id;
+        this.channelId = channelId;
+        this.studentId = studentId;
+    }
+    public ChaWithStu() {
     }
 
     public Long getId() {
@@ -27,28 +26,28 @@ public class ChaWithStu implements Serializable {
         this.id = id;
     }
 
-    public Long getChannel_id(Long id) {
-        return channel_id;
+    public Long getChannelId() {
+        return channelId;
     }
 
-    public void setChannel_id(Long channel_id) {
-        this.channel_id = channel_id;
+    public void setChannelId(Long chaId) {
+        this.channelId = channelId;
     }
 
-    public Long getStudent_id(Long id) {
-        return student_id;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     @Override
     public String toString() {
         return "ChaWithStu{" +
                 "id=" + id +
-                ", channel_id=" + channel_id +
-                ", student_id=" + student_id +
+                ", channelId=" + channelId +
+                ", studentId=" + studentId +
                 '}';
     }
 }

@@ -42,8 +42,6 @@ public class StuServiceImpl implements StuService {
     @Override
     public Stu insert(Stu stu) {
         this.stuDao.insert(stu);
-        ChaWithStu chaWithStu = new ChaWithStu();
-        chaWithStu.getStudent_id(stu.getId());
         return stu;
     }
 

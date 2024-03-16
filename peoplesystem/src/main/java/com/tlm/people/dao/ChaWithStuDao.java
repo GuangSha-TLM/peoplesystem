@@ -11,4 +11,5 @@ import java.util.List;
 public interface ChaWithStuDao {
     List<Stu> getStudentsByChannelId(Long channelId);
     List<Long> getStudentIdsByChannelId(Long channelId);
+    ChaWithStu addChaWithStu(ChaWithStu chaWithStu);
 }
