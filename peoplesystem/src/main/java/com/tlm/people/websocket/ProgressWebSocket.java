@@ -1,5 +1,8 @@
 package com.tlm.people.websocket;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -9,6 +12,8 @@ import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @ServerEndpoint(value = "/websocket")
+@CrossOrigin
+@Component
 public class ProgressWebSocket {
 
     private static CopyOnWriteArrayList<Session> sessions = new CopyOnWriteArrayList<>();
