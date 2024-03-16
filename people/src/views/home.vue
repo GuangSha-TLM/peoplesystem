@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-08 17:48:19
+ * @LastEditTime: 2024-03-15 15:58:34
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -12,18 +12,25 @@
   <div :class="{ pc: !$isMobile, mobile: $isMobile }">
     <!-- -->
     <div class="top">
+      <div @click="drawer = true" class="funtionModel">
+        <i class="el-icon-s-unfold el-icon--right"></i>
+      </div>
+      <el-button type="primary" @click="toggleSelection()">修改 <i class="el-icon-edit el-icon--right"></i></el-button>
+      <el-button type="primary" @click="deleteAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
+      <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
+    </div>
+
+    <List class="list" :lists="list" @getAllStu="getAllStu" @multipleSelection="getMultipleSelection" />
+
+
+    <!-- 按钮抽屉 -->
+    <el-drawer title="我是标题" :visible.sync="drawer" :direction="'ltr'" :with-header="false" class="modle">
+      <span class="title">功能选择</span>
       <el-button type="primary" @click="isUpload = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
       <el-button type="primary" @click="download">下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
-      <el-button type="primary" @click="toggleSelection()">修改</el-button>
-      <el-button type="primary" @click="deleteAll()">删除</el-button>
-      
-
-      <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
-    </div>
-    <List class="list" :lists="list" @getAllStu="getAllStu" @multipleSelection="getMultipleSelection" />
-
+    </el-drawer>
 
     <!-- 上传的表单 -->
     <el-dialog title="提示" :visible.sync="isUpload" width="70%" center>
@@ -51,7 +58,7 @@
 </template>
 
 <script>
-import { resUpdateStatus ,deleteAll } from '@/api/user'
+import { resUpdateStatus, deleteAll } from '@/api/user'
 import List from '@/components/List.vue';
 import { resGetStu, resUpload, resDownload } from '@/api/user';
 
@@ -66,7 +73,8 @@ export default {
       isUpload: false,
       fileList: [],
       exceltype: false,
-      multipleSelection:[]
+      multipleSelection: [],
+      drawer: false
     };
   },
 
@@ -75,7 +83,7 @@ export default {
   },
 
   methods: {
-    getMultipleSelection(multipleSelection){
+    getMultipleSelection(multipleSelection) {
       this.multipleSelection = multipleSelection
     },
     getAllStu() {
@@ -153,6 +161,14 @@ export default {
     },
     //修改接口
     toggleSelection() {
+      if (this.multipleSelection.length <= 0) {
+        this.$message({
+            showClose: true,
+            message: '请选择数据后在修改!',
+            type: 'error'
+          });
+          return;
+      }
       resUpdateStatus(this.multipleSelection).then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
@@ -172,7 +188,8 @@ export default {
       })
     },
     //删除
-    deleteAll(){
+    deleteAll() {
+      
       deleteAll().then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
@@ -190,12 +207,12 @@ export default {
           });
         }
       })
-  },
-  
-  },
- 
+    },
 
-    
+  },
+
+
+
 };
 </script>
 
@@ -214,13 +231,45 @@ export default {
   margin: 0 auto;
 
   .top {
-    width: 45%;
+    width: 100%;
     display: flex;
     justify-content: space-around;
-    margin: 10Px 0;
+    margin: 10Px auto;
+
+    .funtionModel {
+      font-size: 50Px;
+      color: #abc1ee;
+      display: flex;
+      align-items: center;
+    }
 
     ::v-deep .el-button {
       margin-left: 0;
+    }
+
+
+  }
+
+  ::v-deep .el-drawer__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+        font-size: 50Px;
+        /* font-weight: 500; */
+        margin: 30Px auto;
+      }
+    button {
+      width: 90%;
+      margin: 20Px 0;
+    }
+
+    a {
+      width: 90%;
+
+      button {
+        width: 100%;
+      }
     }
   }
 
@@ -242,9 +291,30 @@ export default {
     justify-content: space-around;
     margin: 1% 0;
 
-    ::v-deep .el-button {
-      margin-left: 0;
-      height: 100%;
+    .funtionModel {
+      font-size: 50px;
+      color: #abc1ee;
+      display: flex;
+      align-items: center;
+    }
+
+  }
+
+  ::v-deep .el-button {
+    margin: 0;
+  }
+
+  ::v-deep .el-drawer__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+        font-size: 20px;
+        /* font-weight: 500; */
+        margin: 30Px auto;
+      }
+    button {
+      margin: 10px 0;
     }
   }
 

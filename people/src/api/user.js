@@ -27,4 +27,4 @@ export const download=  (shakeIdList) => {
       params,
       responseType: 'blob'
     });
-  };
+};

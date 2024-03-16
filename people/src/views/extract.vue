@@ -75,6 +75,8 @@ export default {
                                 message: res.data.message,
                                 type: 'error'
                             });
+                            this.$router.push('/')
+
                         }
                     })
                     .catch(err => {
