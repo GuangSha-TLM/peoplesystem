@@ -24,6 +24,12 @@ public class ChaWithStuServiceImpl implements ChaWithStuService {
     private ChaDao chaDao;
     @Resource
     private StuDao stuDao;
+
+    /**
+     * 通过通道id查询名单信息
+     * @param channelId
+     * @return
+     */
     @Override
     public List<Stu> getStudentsByChannelId(Long channelId) {
         List<Long> studentIds = chaWithStuDao.getStudentIdsByChannelId(channelId);
@@ -33,6 +39,12 @@ public class ChaWithStuServiceImpl implements ChaWithStuService {
         return chaWithStuDao.getStudentsByChannelId(channelId);
     }
 
+    /**
+     * 关联表格添加
+     *
+     * @param cha
+     * @param stu
+     */
     @Transactional
     public void addChaWithStu(Cha cha, Stu stu) {
         // 添加Cha和Stu的Id数据

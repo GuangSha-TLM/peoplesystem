@@ -7,8 +7,8 @@ import java.io.Serializable;
  */
 public class ChaWithStu implements Serializable {
     private Long id;
-    private Long channelId;
-    private Long studentId;
+    private Long channelId;//通道id
+    private Long studentId;//名单id
 
     public ChaWithStu(Long id, Long channelId, Long studentId) {
         this.id = id;

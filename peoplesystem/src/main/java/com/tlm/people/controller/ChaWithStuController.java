@@ -12,13 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+/**
+ * (ChaWithStu)表控制层
+ */
 @RestController
 @RequestMapping("/tlm/people/chaWithStu")
 public class ChaWithStuController {
 
     @Resource
     private ChaWithStuDao chaWithStuDao;
+
+    /**
+     * 通过id查询通道从而查询名单
+     * @param channelId
+     * @return
+     */
     @GetMapping("/{channelId}/students")
     public ResponseEntity<List<Stu>> getStudentsByChannelId(@PathVariable Long channelId) {
         List<Stu> students = chaWithStuDao.getStudentsByChannelId(channelId);

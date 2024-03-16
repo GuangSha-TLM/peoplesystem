@@ -22,12 +22,21 @@ public class ChaServiceImpl implements ChaService {
         return this.chaDao.selectByChaId(id);
     }
 
+    /**
+     * 查询所有通道
+     * @return
+     */
     @Override
     public List<Cha> findAll() {
         List<Cha> chaList = chaDao.findAll();
         return chaList;
     }
 
+    /**
+     * 添加通道
+     * @param cha
+     * @return
+     */
     @Override
     public Cha insertByCha(Cha cha) {
         cha.setCreateTime(new Date());
@@ -35,12 +44,22 @@ public class ChaServiceImpl implements ChaService {
         return cha;
     }
 
+    /**
+     * 修改通道
+     * @param cha
+     * @return
+     */
     @Override
     public Cha updateByCha(Cha cha) {
         this.chaDao.updateByCha(cha);
         return this.selectByChaId(cha.getId());
     }
 
+    /**
+     * 删除通道
+     * @param id
+     * @return
+     */
     @Override
     public boolean delecteByChaId(Long id) {
         return this.chaDao.deleteByChaId(id) > 0;
