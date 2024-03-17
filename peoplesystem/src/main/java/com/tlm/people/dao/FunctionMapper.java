@@ -21,4 +21,7 @@ public interface FunctionMapper {
     //批量查询
     List<Stu> selectShake(List<Long> shakeIdList);
 
+    //根据状态找出所有stu对象
+    List<Stu> selectAllStatus(Integer status);
+
 }

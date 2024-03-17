@@ -5,6 +5,11 @@
     <resultMap type="com.tlm.people.entity.Stu" id="shakeById">
         <result property="id" column="id" jdbcType="INTEGER"/>
     </resultMap>
+
+    <sql id="function">
+        stu_id,stu_name,status
+    </sql>
+
     <!-- 导入 -->
     <insert id="importData">
         insert into
@@ -39,4 +44,15 @@
             #{id}
         </foreach>
     </select>
+
+    <!-- 根据状态找出所有stu对象 -->
+    <select id="selectAllStatus" resultType="com.tlm.people.entity.Stu">
+        select
+            <include refid="function"/>
+        from
+            student
+        where
+            status = #{status}
+    </select>
+
 </mapper>

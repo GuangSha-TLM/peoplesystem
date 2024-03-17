@@ -19,4 +19,11 @@ public interface FunctionService {
     //摇人后下载
     void exportDataShake(HttpServletResponse response , List<Long> shakeList);
 
+    /**
+     * @author hln 2024-3-17
+     * 下载指定状态（抽中/未抽中）的所有人的数据
+     * @param response
+     * @param status
+     */
+    void exportStatusData(HttpServletResponse response, Integer status);
 }

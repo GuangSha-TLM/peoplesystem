@@ -121,17 +121,19 @@ public class StuServiceImpl implements StuService {
                 while (true) {
                     stuIdList.forEach(studentId -> {
                         Stu student = stuDao.queryById(studentId); // 假设 stuDao 已经正确初始化
-                        if (student != null) {
-                            System.out.println("Student " + studentId + " status: " + student.getStatus());
-                        }
+//                        if (student != null) {
+//                            System.out.println("Student " + studentId + " status: " + student.getStatus());
+//                        }
                     });
-                    Thread.sleep(2000); // 每2秒查询一次状态
+                    Thread.sleep(3000); // 每3秒查询一次状态
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
 
+        //关闭websocket
+        ProgressWebSocket.closeAllSessions();
         // 关闭线程池
         executorService.shutdown();
     }

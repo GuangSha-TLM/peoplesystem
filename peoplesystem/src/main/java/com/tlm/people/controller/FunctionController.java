@@ -37,6 +37,15 @@ public class FunctionController {
         functionService.exportData(response);
         return JSONArray.toJSONString(new ResponseVo("下载成功",null,"0x200"));
     }
+
+    //下载指定状态（抽中/未抽中）的所有人的数据
+    @ApiOperation("下载指定状态的数据")
+    @PostMapping("/exportStatusData/{status}")
+    public String exportStatusData(HttpServletResponse response,@PathVariable Integer status){
+        functionService.exportStatusData(response,status);
+        return JSONArray.toJSONString(new ResponseVo("下载成功",null,"0x200"));
+    }
+
     //摇人文件下载
     @ApiOperation("摇人文件下载")
     @GetMapping("/exportDataShake")

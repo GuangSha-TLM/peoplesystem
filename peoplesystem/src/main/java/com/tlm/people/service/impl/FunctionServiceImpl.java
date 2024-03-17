@@ -115,6 +115,46 @@ public class FunctionServiceImpl implements FunctionService {
         }
     }
 
+    /**
+     * @author hln 2024-3-17
+     * 下载指定状态（抽中/未抽中）的所有人的数据
+     * @param response
+     * @param status
+     */
+    @Override
+    public void exportStatusData(HttpServletResponse response, Integer status) {
+        try {
+
+            List<Stu> stuList = functionMapper.selectAllStatus(status);;
+
+            // 设置响应头信息和其他信息
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("utf-8");
+
+            // 这里 URLEncoder.encode 可以防止中文乱码
+            String fileName = URLEncoder.encode("分类数据", "UTF-8");
+
+            // 设置响应头
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Access-Control-Expose-Headers", "Content-disposition");
+
+            // 将查询结果转换为 Excel 数据
+            List<FunctionExcelBo> functionExcelBoList = new ArrayList<>();
+            for (Stu stu : stuList) {
+                FunctionExcelBo functionExcelBo = new FunctionExcelBo();
+                BeanUtils.copyProperties(stu, functionExcelBo);
+                functionExcelBoList.add(functionExcelBo);
+            }
+
+            // 写入 Excel 数据到响应输出流
+            EasyExcel.write(response.getOutputStream(), FunctionExcelBo.class)
+                    .sheet("数据").doWrite(functionExcelBoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
         //写操作
         {

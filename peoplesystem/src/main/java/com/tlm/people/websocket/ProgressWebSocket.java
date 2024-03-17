@@ -47,4 +47,17 @@ public class ProgressWebSocket {
             }
         }
     }
+
+    // 添加一个静态方法，用于关闭所有连接
+    public static void closeAllSessions() {
+        for (Session session : sessions) {
+            try {
+                session.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        sessions.clear();
+    }
+
 }
