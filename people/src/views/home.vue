@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-16 20:07:58
+ * @LastEditTime: 2024-03-17 15:34:09
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -15,21 +15,25 @@
       <div @click="drawer = true" class="funtionModel">
         <i class="el-icon-s-unfold el-icon--right"></i>
       </div>
-      <el-button type="primary" :disabled="isButtonDisabled" @click="toggleSelection()">修改 <i
-          class="el-icon-edit el-icon--right"></i></el-button>
+      <el-button type="primary" @click="toggleSelection()">修改 <i class="el-icon-edit el-icon--right"></i></el-button>
       <el-button type="primary" @click="deleteAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
 
     <List class="list" :lists="list" @getAllStu="getAllStu" @multipleSelection="getMultipleSelection" />
 
+
     <!-- 按钮抽屉 -->
-    <el-drawer title="我是标题" :visible.sync="drawer" :direction="'ltr'" :with-header="false" class="modle">
+    <el-drawer title="功能选择" :visible.sync="drawer" :direction="'ltr'" :with-header="false" class="modle">
       <span class="title">功能选择</span>
       <el-button type="primary" @click="isUpload = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
-      <el-button type="primary" @click="download">下载<i class="el-icon-download el-icon--right"></i></el-button>
+      <el-button type="primary" @click="downloadAll">下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
+      <el-button type="primary" @click="statusDownload(1)">下载已完成<i
+          class="el-icon-download el-icon--right"></i></el-button>
+      <el-button type="primary" @click="statusDownload(0)">下载未完成<i
+          class="el-icon-download el-icon--right"></i></el-button>
     </el-drawer>
 
     <!-- 上传的表单 -->
@@ -45,6 +49,7 @@
       </span>
     </el-dialog>
 
+
     <!--提示用户excel的格式  -->
     <el-dialog title="提示" :visible.sync="exceltype" center :show-close="false">
       <img src="@/assets/excelExample.png" alt="" width="100%">
@@ -57,9 +62,10 @@
 </template>
 
 <script>
-import { resUpdateStatus, deleteAll } from '@/api/user'
+import { resUpdateStatus, deleteAll, resGetStu } from '@/api/user'
 import List from '@/components/List.vue';
-import { resGetStu, resUpload, resDownload } from '@/api/user';
+import { resUpload, resDownload, stateAssignment } from '@/api/filefunction';
+
 
 export default {
   name: 'home',
@@ -73,12 +79,7 @@ export default {
       fileList: [],
       exceltype: false,
       multipleSelection: [],
-      drawer: false,
-      isButtonDisabled: false,
-      ws: {},
-      socket: null,
-      webSocketIp: "127.0.0.1",
-      webSocketPort: 7111,
+      drawer: false
     };
   },
 
@@ -145,23 +146,34 @@ export default {
       }
       return isXLS && isLt10M;
     },
-    download() {
+    //下载所有
+    downloadAll() {
       resDownload()
         .then(response => {
           if (response.status === 200) {
-            const fileName = response.headers["content-disposition"].split(";")[1].split("=")[1]
-            // console.log(decodeURIComponent(fileName));
-            let link = document.createElement('a');
-            link.href = window.URL.createObjectURL(response.data);
-            link.download = decodeURIComponent(fileName);//设置下载文件名
-            link.click();//模拟点击
-            //释放资源并删除创建的a标签
-            URL.revokeObjectURL(link.href);
-            link.remove()
+            this.download(response)
           }
-
         });
 
+    },
+    statusDownload(status){
+      stateAssignment(status).then(response => {
+        if (response.status === 200) {
+          this.download(response)
+        }
+      })
+    },
+    //下载模板
+    download(response) {
+      const fileName = response.headers["content-disposition"].split(";")[1].split("=")[1]
+      // console.log(decodeURIComponent(fileName));
+      let link = document.createElement('a');
+      link.href = window.URL.createObjectURL(response.data);
+      link.download = decodeURIComponent(fileName);//设置下载文件名
+      link.click();//模拟点击
+      //释放资源并删除创建的a标签
+      URL.revokeObjectURL(link.href);
+      link.remove()
     },
     //修改接口
     toggleSelection() {
@@ -173,50 +185,23 @@ export default {
         });
         return;
       }
-      this.isButtonDisabled = true;
-
-      this.socket = new WebSocket("ws://" + this.webSocketIp + ":" + this.webSocketPort + `/websocket`);
-      console.log(this.socket);
-      this.socket.onopen = () => {
-        console.log("websocket连接成功");
-        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-          this.socket.send('');
+      resUpdateStatus(this.multipleSelection).then((res) => {
+        console.log(res);
+        if (res.data.code === '0x200') {
+          this.$message({
+            showClose: true,
+            message: '修改成功!',
+            type: 'success'
+          });
+          this.getAllStu()
+        } else {
+          this.$message({
+            showClose: true,
+            message: res.data.message,
+            type: 'error'
+          });
         }
-        resUpdateStatus(this.multipleSelection).then((res) => {
-          try {
-            if (res.data.code === '0x200') {
-              this.$message({
-                showClose: true,
-                message: '修改成功!',
-                type: 'success'
-              });
-              this.getAllStu()
-            } else {
-              this.$message({
-                showClose: true,
-                message: res.data.message,
-                type: 'error'
-              });
-            }
-            this.isButtonDisabled = false;
-
-          } catch (error) {
-            this.$message({
-              showClose: true,
-              message: '请求失败: ' + (error.message || '未知错误'),
-              type: 'error'
-            });
-            // 重新启用按钮  
-            this.isButtonDisabled = false;
-          }
-          this.socket.close()
-        })
-      }
-      this.socket.onmessage = (res) => {
-        console.log(res.data);
-      }
-      
-
+      })
     },
     //删除
     deleteAll() {

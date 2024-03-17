@@ -11,8 +11,7 @@ export const resUserShake = (number) => request({ url: '/tlm/people/user/userSha
 export const resGetStu = () => request({ url: '/tlm/people/stu/findAll', method: 'get' });
 export const resUpdateStatus = (stuIdList) => request({ url: '/tlm/people/stu/updateStatus', method: 'post', data: stuIdList });
 
-export const resUpload = (multipartFile) => request({ url: '/tlm/people/function/importData', method: 'post', data: multipartFile });
-export const resDownload = () => request({ url: '/tlm/people/function/exportData', method: 'get', responseType: 'blob' });
+
 export const deleteAll = () => request({ url: '/tlm/people/stu/deleteByAll', method: 'post' });
 //下载特加 responseType: 'blob' 
 export const download=  (shakeIdList) => {
