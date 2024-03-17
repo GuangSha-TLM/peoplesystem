@@ -39,6 +39,20 @@ public class ChaWithStuServiceImpl implements ChaWithStuService {
         return chaWithStuDao.getStudentsByChannelId(channelId);  // 修正此处返回值
     }
 
+    /**
+     * 关联表格添加
+     * @param chaWithStu
+     * @return
+     */
+    @Override
+    public ChaWithStu addChaWithStu(ChaWithStu chaWithStu) {
+        if (chaWithStu.getStudentId() == null && "".equals(chaWithStu.getStudentId())) {
+            chaWithStu.setStudentId(null);
+        }
+        this.chaWithStuDao.addChaWithStu(chaWithStu);
+        return chaWithStu;
+    }
+
 
     /**
      * 关联表格添加
