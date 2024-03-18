@@ -14,7 +14,7 @@ public interface FunctionService {
     //文件上传
     void importData(MultipartFile multipartFile);
     //文件上传2
-    void importData1(MultipartFile multipartFile, ChaWithStu chaWithStu);
+    void importData1(MultipartFile multipartFile, Long id);
     //文件导出（下载）
     void exportData(HttpServletResponse response);
 

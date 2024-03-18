@@ -59,7 +59,8 @@ public class FunctionServiceImpl implements FunctionService {
 
     //上传文件1
     @Override
-    public void importData1(MultipartFile multipartFile, ChaWithStu chaWithStu) {
+    public void importData1(MultipartFile multipartFile, Long id) {
+        ChaWithStu chaWithStu = new ChaWithStu();
         if (multipartFile.isEmpty()) {
             throw new GuiguException("0x500","文件为空");
         }
@@ -73,8 +74,8 @@ public class FunctionServiceImpl implements FunctionService {
             List<FunctionExcelVo1> cachedDataList = excelListener.getCachedDataList();
             List<Long> insertedIds = saveData1(cachedDataList); // 调用saveData()方法保存数据并获取插入的ID列表
             // 在这里可以使用insertedIds，进行后续操作
-            for (Long id : insertedIds) {
-                chaWithStu.setStudentId(id);
+            for (Long ids : insertedIds) {
+                chaWithStu.setStudentId(ids);
                 this.chaWithStuDao.addChaWithStu(chaWithStu);
             }
         } catch (Exception e) {
