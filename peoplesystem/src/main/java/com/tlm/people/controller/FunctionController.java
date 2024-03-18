@@ -33,7 +33,7 @@ public class FunctionController {
     //上传文件1
     @ApiOperation("上传文件1")
     @PostMapping("/importData1")
-    public String importData1(@RequestParam("multipartFile") MultipartFile multipartFile, @RequestBody ChaWithStu chaWithStu) {
+    public String importData1( MultipartFile multipartFile, @RequestBody ChaWithStu chaWithStu) {
         this.functionService.importData1(multipartFile,chaWithStu);
        return JSONArray.toJSONString(new ResponseVo("上传成功", null, "0x200"));
     }
