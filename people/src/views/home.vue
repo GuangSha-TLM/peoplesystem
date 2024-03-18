@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-17 15:34:09
+ * @LastEditTime: 2024-03-17 17:25:17
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -24,15 +24,15 @@
 
 
     <!-- 按钮抽屉 -->
-    <el-drawer title="功能选择" :visible.sync="drawer" :direction="'ltr'" :with-header="false" class="modle">
+    <el-drawer title="功能选择" :visible.sync="drawer" :direction="'ltr'" :with-header="false" :size="'40%'" class="modle">
       <span class="title">功能选择</span>
       <el-button type="primary" @click="isUpload = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
       <el-button type="primary" @click="downloadAll">下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
-      <el-button type="primary" @click="statusDownload(1)">下载已完成<i
+      <el-button type="primary" @click="statusDownload(1)">下载已选择<i
           class="el-icon-download el-icon--right"></i></el-button>
-      <el-button type="primary" @click="statusDownload(0)">下载未完成<i
+      <el-button type="primary" @click="statusDownload(0)">下载未选择<i
           class="el-icon-download el-icon--right"></i></el-button>
     </el-drawer>
 
@@ -335,6 +335,14 @@ export default {
 
     button {
       margin: 10px 0;
+      width: 90%;
+    }
+    a {
+      width: 90%;
+
+      button {
+        width: 100%;
+      }
     }
   }
 
