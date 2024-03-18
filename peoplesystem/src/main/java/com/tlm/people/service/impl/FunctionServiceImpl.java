@@ -1,11 +1,13 @@
 package com.tlm.people.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.tlm.people.dao.ChaWithStuDao;
 import com.tlm.people.dao.FunctionMapper;
-import com.tlm.people.dao.StuDao;
+import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.bo.FunctionExcelBo;
 import com.tlm.people.entity.vo.FunctionExcelVo;
+import com.tlm.people.entity.vo.FunctionExcelVo1;
 import com.tlm.people.service.FunctionService;
 import com.tlm.people.utils.ExcelListener;
 import com.tlm.people.utils.GuiguException;
@@ -25,7 +27,7 @@ public class FunctionServiceImpl implements FunctionService {
     @Autowired
     private FunctionMapper functionMapper;
     @Autowired
-    private StuDao stuDao;
+    private ChaWithStuDao chaWithStuDao;
     //上传
     @Override
     public void importData(MultipartFile multipartFile) {
@@ -39,6 +41,42 @@ public class FunctionServiceImpl implements FunctionService {
         try {
             EasyExcel.read(multipartFile.getInputStream(), FunctionExcelVo.class, excelListener)
                     .sheet().doRead();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new GuiguException("0x501","文件格式错误");
+        }
+    }
+    public List<Long> saveData1(List<FunctionExcelVo1> cachedDataList) {
+        List<Long> insertedIds = new ArrayList<>();
+        for (FunctionExcelVo1 data : cachedDataList) {
+            // 保存数据并获取插入的ID
+            // 假设这里使用了 functionMapper.insert(data) 方法，并返回插入的ID
+            Long insertedId = (long) functionMapper.saveData1(data);
+            insertedIds.add(insertedId);
+        }
+        return insertedIds;
+    }
+
+    //上传文件1
+    @Override
+    public void importData1(MultipartFile multipartFile, ChaWithStu chaWithStu) {
+        if (multipartFile.isEmpty()) {
+            throw new GuiguException("0x500","文件为空");
+        }
+
+        ExcelListener<FunctionExcelVo1> excelListener = new ExcelListener<>(functionMapper);
+
+        try {
+            EasyExcel.read(multipartFile.getInputStream(), FunctionExcelVo.class, excelListener)
+                    .sheet().doRead();
+
+            List<FunctionExcelVo1> cachedDataList = excelListener.getCachedDataList();
+            List<Long> insertedIds = saveData1(cachedDataList); // 调用saveData()方法保存数据并获取插入的ID列表
+            // 在这里可以使用insertedIds，进行后续操作
+            for (Long id : insertedIds) {
+                chaWithStu.setStudentId(id);
+                this.chaWithStuDao.addChaWithStu(chaWithStu);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new GuiguException("0x501","文件格式错误");
