@@ -60,7 +60,7 @@ public class FunctionServiceImpl implements FunctionService {
     //上传文件1
     @Override
     public void importData1(MultipartFile multipartFile, Long id) {
-        ChaWithStu chaWithStu = new ChaWithStu();
+
         if (multipartFile.isEmpty()) {
             throw new GuiguException("0x500","文件为空");
         }
@@ -70,20 +70,25 @@ public class FunctionServiceImpl implements FunctionService {
         try {
             EasyExcel.read(multipartFile.getInputStream(), FunctionExcelVo.class, excelListener)
                     .sheet().doRead();
+            // 获取解析后的数据列表
+            List<FunctionExcelVo1> dataList = excelListener.getCachedDataList();
 
+            // 保存数据并获取主键ID
             List<FunctionExcelVo1> functionExcelVoList1 = new ArrayList<>();
-            FunctionExcelVo1 functionExcelVo1 = new FunctionExcelVo1();
-            // 将 functionExcelVo 添加到列表中
-            functionExcelVoList1.add(functionExcelVo1);
-            // 保存数据
+            for (FunctionExcelVo1 functionExcelVo1 : dataList) {
+                functionExcelVoList1.add(functionExcelVo1);
+            }
             functionMapper.saveData1(functionExcelVoList1);
-            // 获取学生ID
-            long studentId = functionExcelVo1.getId();
-            // 设置学生ID
-            chaWithStu.setStudentId(studentId);
-            chaWithStu.setChannelId(id);
-            // 添加ChaWithStu
-            this.chaWithStuDao.addChaWithStu(chaWithStu);
+
+            // 获取主键ID并将其用于另一个操作
+            for (FunctionExcelVo1 functionExcelVo1 : functionExcelVoList1) {
+                long studentId = functionExcelVo1.getId();
+                ChaWithStu chaWithStu = new ChaWithStu(); // 构造 ChaWithStu 对象
+                chaWithStu.setStudentId(studentId); // 设置学生ID
+                chaWithStu.setChannelId(id);
+                // 添加 ChaWithStu
+                this.chaWithStuDao.addChaWithStu(chaWithStu);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new GuiguException("0x501","文件格式错误");
