@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 09:47:20
- * @LastEditTime: 2024-03-15 16:25:55
+ * @LastEditTime: 2024-03-18 16:29:08
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/components/List.vue
@@ -109,7 +109,7 @@ export default {
         download() {
             var IdList = []
             for (let index = 0; index < this.list.length; index++) {
-                var id = this.list[index].stuId;
+                var id = this.list[index].id;
                 IdList.push(id);
             }
             download(IdList)

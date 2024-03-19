@@ -1,6 +1,7 @@
 package com.tlm.people.controller;
 
 import com.alibaba.fastjson2.JSONArray;
+import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.result.Result;
@@ -29,7 +30,14 @@ public class FunctionController {
         functionService.importData(multipartFile);
         return JSONArray.toJSONString(new ResponseVo("上传成功",null,"0x200"));
     }
+    //上传文件1
+    @ApiOperation("上传文件1")
+    @PostMapping("/importData1/{id}")
+    public String importData1( MultipartFile multipartFile, @PathVariable Long id) {
 
+        this.functionService.importData1(multipartFile,id);
+       return JSONArray.toJSONString(new ResponseVo("上传成功", null, "0x200"));
+    }
     //导出
     @ApiOperation("文件下载")
     @GetMapping("/exportData")

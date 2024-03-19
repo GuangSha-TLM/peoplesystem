@@ -28,5 +28,5 @@ public interface ChaWithStuDao {
      * @param chaWithStu
      * @return
      */
-    ChaWithStu addChaWithStu(ChaWithStu chaWithStu);
+    void addChaWithStu(ChaWithStu chaWithStu);
 }

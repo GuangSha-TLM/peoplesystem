@@ -2,7 +2,8 @@ package com.tlm.people.entity.bo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 
-public class FunctionExcelBo {
+public class FunctionExcelBo1 {
+    private Long id;
     @ExcelProperty(value = "学号" ,index = 0)
     private Long stuId;
 
@@ -12,12 +13,21 @@ public class FunctionExcelBo {
     @ExcelProperty(value = "状态" ,index = 2)
     private Integer status;
 
-    public FunctionExcelBo() {}
+    public FunctionExcelBo1() {}
 
-    public FunctionExcelBo(Long stuId, String stuName, Integer status) {
+    public FunctionExcelBo1(Long id, Long stuId, String stuName, Integer status) {
+        this.id = id;
         this.stuId = stuId;
         this.stuName = stuName;
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getStuId() {
@@ -46,8 +56,9 @@ public class FunctionExcelBo {
 
     @Override
     public String toString() {
-        return "FunctionExcelBo{" +
-                "stuId=" + stuId +
+        return "FunctionExcelBo1{" +
+                "id=" + id +
+                ", stuId=" + stuId +
                 ", stuName='" + stuName + '\'' +
                 ", status=" + status +
                 '}';

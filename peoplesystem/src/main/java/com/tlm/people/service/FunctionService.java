@@ -1,5 +1,6 @@
 package com.tlm.people.service;
 
+import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
 import com.tlm.people.entity.vo.ResponseVo;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +13,8 @@ public interface FunctionService {
 
     //文件上传
     void importData(MultipartFile multipartFile);
-
+    //文件上传2
+    void importData1(MultipartFile multipartFile, Long id);
     //文件导出（下载）
     void exportData(HttpServletResponse response);
 

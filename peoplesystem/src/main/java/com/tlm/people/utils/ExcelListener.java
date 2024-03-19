@@ -27,7 +27,9 @@ public class ExcelListener<T> implements ReadListener<T> {
     public ExcelListener(FunctionMapper functionMapper) {
         this.functionMapper = functionMapper;
     }
-
+    public List<T> getCachedDataList() {
+        return cachedDataList;
+    }
     public ExcelListener() {
 
     }
