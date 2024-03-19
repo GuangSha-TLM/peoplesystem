@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-17 17:25:17
+ * @LastEditTime: 2024-03-19 17:42:18
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -27,6 +27,8 @@
     <el-drawer title="功能选择" :visible.sync="drawer" :direction="'ltr'" :with-header="false" :size="'40%'" class="modle">
       <span class="title">功能选择</span>
       <el-button type="primary" @click="isUpload = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+      <!-- <el-button type="primary" @click="isUpload1 = true">上传1<i class="el-icon-upload el-icon--right"></i></el-button> -->
+
       <el-button type="primary" @click="downloadAll">下载<i class="el-icon-download el-icon--right"></i></el-button>
       <router-link to="/extract"><el-button type="primary">摇人<i
             class="el-icon-user el-icon--right"></i></el-button></router-link>
@@ -64,7 +66,8 @@
 <script>
 import { resUpdateStatus, deleteAll, resGetStu } from '@/api/user'
 import List from '@/components/List.vue';
-import { resUpload, resDownload, stateAssignment } from '@/api/filefunction';
+import { resUpload1, resDownload, stateAssignment } from '@/api/filefunction';
+import { addChaWithStu } from '@/api/chaWithStu'
 
 
 export default {
@@ -107,10 +110,17 @@ export default {
     //element的上传
     confirmUpload() {
       const formData = new FormData();
+
       formData.append("multipartFile", this.fileList[0].raw)
       console.log(formData);
-      resUpload(formData).then((res) => {
+      resUpload1(formData, 1).then((res) => {
         if (res.data.code === '0x200') {
+          var chaWithStu = {
+            channelId: 1
+          }
+          // addChaWithStu(chaWithStu).then((response) => {
+          //   console.log(response);
+          // })
           console.log(res);
           this.$message({
             showClose: true,
@@ -129,6 +139,8 @@ export default {
           this.fileList = [];
         }
       })
+
+
     },
     handleChange(file, fileList) { //文件数量改变
       this.fileList = fileList;
@@ -156,7 +168,7 @@ export default {
         });
 
     },
-    statusDownload(status){
+    statusDownload(status) {
       stateAssignment(status).then(response => {
         if (response.status === 200) {
           this.download(response)
@@ -337,6 +349,7 @@ export default {
       margin: 10px 0;
       width: 90%;
     }
+
     a {
       width: 90%;
 

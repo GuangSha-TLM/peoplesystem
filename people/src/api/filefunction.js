@@ -11,6 +11,8 @@ import request from "@/utils/request";
 
 //上传文件
 export const resUpload = (multipartFile) => request({ url: '/tlm/people/function/importData', method: 'post', data: multipartFile });
+
+export const resUpload1 = (formData,id) => request({ url: `/tlm/people/function/importData1/${id}`, method: 'post', data: formData});
 //下载所有数据
 export const resDownload = () => request({ url: '/tlm/people/function/exportData', method: 'get', responseType: 'blob' });
 
