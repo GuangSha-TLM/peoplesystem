@@ -3,7 +3,6 @@ package com.tlm.people.entity.bo;
 import com.alibaba.excel.annotation.ExcelProperty;
 
 public class FunctionExcelBo {
-
     @ExcelProperty(value = "学号" ,index = 0)
     private Long stuId;
 

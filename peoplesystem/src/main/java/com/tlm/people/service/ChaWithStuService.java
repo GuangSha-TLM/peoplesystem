@@ -13,6 +13,8 @@ public interface ChaWithStuService {
      * @return
      */
     List<Stu> getStudentsByChannelId(Long channelId);
+
+
     ChaWithStu addChaWithStu(ChaWithStu chaWithStu);
 
     /**
