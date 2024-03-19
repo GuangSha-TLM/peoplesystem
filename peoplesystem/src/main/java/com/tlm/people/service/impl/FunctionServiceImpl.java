@@ -60,7 +60,7 @@ public class FunctionServiceImpl implements FunctionService {
     //上传文件1
     @Override
     public void importData1(MultipartFile multipartFile, Long id) {
-        chaWithStuDao.getStudentsByChannelId(id);
+        ChaWithStu chaWithStu = new ChaWithStu();
         if (multipartFile.isEmpty()) {
             throw new GuiguException("0x500","文件为空");
         }
@@ -71,6 +71,19 @@ public class FunctionServiceImpl implements FunctionService {
             EasyExcel.read(multipartFile.getInputStream(), FunctionExcelVo.class, excelListener)
                     .sheet().doRead();
 
+            List<FunctionExcelVo1> functionExcelVoList1 = new ArrayList<>();
+            FunctionExcelVo1 functionExcelVo1 = new FunctionExcelVo1();
+            // 将 functionExcelVo 添加到列表中
+            functionExcelVoList1.add(functionExcelVo1);
+            // 保存数据
+            functionMapper.saveData1(functionExcelVoList1);
+            // 获取学生ID
+            long studentId = functionExcelVo1.getId();
+            // 设置学生ID
+            chaWithStu.setStudentId(studentId);
+            chaWithStu.setChannelId(id);
+            // 添加ChaWithStu
+            this.chaWithStuDao.addChaWithStu(chaWithStu);
         } catch (Exception e) {
             e.printStackTrace();
             throw new GuiguException("0x501","文件格式错误");
