@@ -6,6 +6,7 @@
         <result property="stuId" column="stu_id"/>
         <result property="stuName" column="stu_name"/>
         <result property="status" column="status"/>
+        <result property="channelId" column="channel_id"/>
     </resultMap>
 
     <select id="getStudentsByChannelId" resultMap="ChannelAndStudentsResultMap">
@@ -13,13 +14,12 @@
             s.id AS student_id,
             s.stu_id,
             s.stu_name,
-            s.status
+            s.status,
+            s.channel_id
         FROM
-            channel c
+            student s
                 LEFT JOIN
-            channel_student cs ON c.id = cs.channel_id
-                LEFT JOIN
-            student s ON cs.student_id = s.id
+            channel c ON c.id = s.channel_id
         WHERE
             c.id = #{channelId}
     </select>
