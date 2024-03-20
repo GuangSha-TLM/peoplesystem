@@ -11,8 +11,22 @@ export const resUserShake = (number) => request({ url: '/tlm/people/user/userSha
 export const resGetStu = () => request({ url: '/tlm/people/stu/findAll', method: 'get' });
 export const resUpdateStatus = (stuIdList) => request({ url: '/tlm/people/stu/updateStatus', method: 'post', data: stuIdList });
 
+//删除
+// export const deleteByAll = (deleteIdList) => request({ url: '/tlm/people/stu/deleteByAll', method: 'post',params: deleteIdList });
+export const deleteByAll=  (deleteIdList) => {
+  const params = new URLSearchParams();
+  deleteIdList.forEach(id => {
+    params.append('deleteIdList', id);
+  });
 
-export const deleteAll = () => request({ url: '/tlm/people/stu/deleteByAll', method: 'post' });
+  return request({
+    url: '/tlm/people/stu/deleteByAll',
+    method: 'post',
+    params,
+  });
+};
+
+
 //下载特加 responseType: 'blob' 
 export const download=  (shakeIdList) => {
     const params = new URLSearchParams();

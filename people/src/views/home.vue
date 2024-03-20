@@ -16,7 +16,7 @@
         <i class="el-icon-s-unfold el-icon--right"></i>
       </div>
       <el-button type="primary" @click="toggleSelection()">修改 <i class="el-icon-edit el-icon--right"></i></el-button>
-      <el-button type="primary" @click="deleteAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
+      <el-button type="primary" @click="deleteByAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
 
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { resUpdateStatus, deleteAll, resGetStu } from '@/api/user'
+import { resUpdateStatus, resGetStu, deleteByAll } from '@/api/user'
 import List from '@/components/List.vue';
 import { resUpload1, resDownload, stateAssignment } from '@/api/filefunction';
 import { addChaWithStu } from '@/api/chaWithStu'
@@ -216,9 +216,18 @@ export default {
       })
     },
     //删除
-    deleteAll() {
-
-      deleteAll().then((res) => {
+    //调用的点击事件的
+    deleteByAll() {
+      if (this.multipleSelection.length <= 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据后在删除!',
+          type: 'error'
+        });
+        return;
+      }
+      //调用的后端接口的       
+      deleteByAll(this.multipleSelection).then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
           this.$message({
@@ -234,14 +243,14 @@ export default {
             type: 'error'
           });
         }
+
       })
-    },
-
-  },
+    }
 
 
 
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>
