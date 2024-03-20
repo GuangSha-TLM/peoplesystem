@@ -127,7 +127,8 @@ export default {
                         link.remove()
                     }
                 })
-        }
+        },
+        
     },
     props: {
         lists: {
