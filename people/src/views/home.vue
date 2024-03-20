@@ -1,7 +1,7 @@
 <!--
  * @Author: tianleiyu 
  * @Date: 2024-03-07 13:31:22
- * @LastEditTime: 2024-03-19 17:42:18
+ * @LastEditTime: 2024-03-20 20:10:30
  * @LastEditors: tianleiyu
  * @Description: 
  * @FilePath: /people/src/views/home.vue
@@ -15,8 +15,10 @@
       <div @click="drawer = true" class="funtionModel">
         <i class="el-icon-s-unfold el-icon--right"></i>
       </div>
-      <el-button type="primary" @click="toggleSelection()">修改 <i class="el-icon-edit el-icon--right"></i></el-button>
-      <el-button type="primary" @click="deleteByAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
+      <el-button type="primary" v-if="isUpdate" @click="toggleSelection()">修改 <i class="el-icon-edit el-icon--right"></i></el-button>
+      <el-button type="primary" v-else :loading="true">加载中</el-button>
+      <el-button type="primary" v-if="isDelete" @click="deleteByAll()">删除<i class="el-icon-delete el-icon--right"></i></el-button>
+      <el-button type="primary" v-else :loading="true">加载中</el-button>
       <!-- <el-button type="text" @click="exceltype = true">点击打开 Dialog</el-button> -->
     </div>
 
@@ -67,7 +69,6 @@
 import { resUpdateStatus, resGetStu, deleteByAll } from '@/api/user'
 import List from '@/components/List.vue';
 import { resUpload1, resDownload, stateAssignment } from '@/api/filefunction';
-import { addChaWithStu } from '@/api/chaWithStu'
 import {  chaWithStuByChaId } from '@/api/channel'
 
 
@@ -83,7 +84,9 @@ export default {
       fileList: [],
       exceltype: false,
       multipleSelection: [],
-      drawer: false
+      drawer: false,
+      isUpdate:true,
+      isDelete:true
     };
   },
 
@@ -122,7 +125,6 @@ export default {
     //element的上传
     confirmUpload() {
       const formData = new FormData();
-
       formData.append("multipartFile", this.fileList[0].raw)
       console.log(formData);
       resUpload1(formData,this.$route.params.id ).then((res) => {
@@ -203,6 +205,7 @@ export default {
         });
         return;
       }
+      this.isUpdate = false
       resUpdateStatus(this.multipleSelection).then((res) => {
         console.log(res);
         if (res.data.code === '0x200') {
@@ -219,6 +222,7 @@ export default {
             type: 'error'
           });
         }
+        this.isUpdate = true
       })
     },
     //删除
@@ -232,6 +236,7 @@ export default {
         });
         return;
       }
+      this.isDelete = false
       //调用的后端接口的       
       deleteByAll(this.multipleSelection).then((res) => {
         console.log(res);
@@ -249,7 +254,7 @@ export default {
             type: 'error'
           });
         }
-
+        this.isDelete = true
       })
     }
 
