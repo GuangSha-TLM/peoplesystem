@@ -27,6 +27,9 @@ public interface FunctionMapper {
 
     //根据状态找出所有stu对象
     List<Stu> selectAllStatus(Integer status);
-
-    int saveData1(FunctionExcelVo1 data);
 }
+
+
+
+
+

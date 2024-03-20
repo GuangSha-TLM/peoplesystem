@@ -50,22 +50,22 @@ public class ChaWithStuServiceImpl implements ChaWithStuService {
      * @param chaWithStu
      * @return
      */
-    @Override
-    public ChaWithStu addChaWithStu(ChaWithStu chaWithStu) {
-        List<FunctionExcelVo1> functionExcelVoList1 = new ArrayList<>();
-        FunctionExcelVo1 functionExcelVo1 = new FunctionExcelVo1();
-        // 将 functionExcelVo 添加到列表中
-        functionExcelVoList1.add(functionExcelVo1);
-        // 保存数据
-        functionMapper.saveData1(functionExcelVoList1);
-        // 获取学生ID
-        long studentId = functionExcelVo1.getId();
-        // 设置学生ID
-        chaWithStu.setStudentId(studentId);
-        // 添加ChaWithStu
-        this.chaWithStuDao.addChaWithStu(chaWithStu);
-        return chaWithStu;
-    }
+//    @Override
+//    public ChaWithStu addChaWithStu(ChaWithStu chaWithStu) {
+//        List<FunctionExcelVo1> functionExcelVoList1 = new ArrayList<>();
+//        FunctionExcelVo1 functionExcelVo1 = new FunctionExcelVo1();
+//        // 将 functionExcelVo 添加到列表中
+//        functionExcelVoList1.add(functionExcelVo1);
+//        // 保存数据
+//        functionMapper.saveData1(functionExcelVoList1);
+//        // 获取学生ID
+//        long studentId = functionExcelVo1.getId();
+//        // 设置学生ID
+//        chaWithStu.setStudentId(studentId);
+//        // 添加ChaWithStu
+//        this.chaWithStuDao.addChaWithStu(chaWithStu);
+//        return chaWithStu;
+//    }
 
 
     /**

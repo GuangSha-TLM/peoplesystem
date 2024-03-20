@@ -15,7 +15,7 @@ public interface ChaWithStuService {
     List<Stu> getStudentsByChannelId(Long channelId);
 
 
-    ChaWithStu addChaWithStu(ChaWithStu chaWithStu);
+//    ChaWithStu addChaWithStu(ChaWithStu chaWithStu);
 
     /**
      * 关联表单

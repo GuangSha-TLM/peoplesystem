@@ -20,8 +20,6 @@ public class ChaWithStuController {
 
     @Resource
     private ChaWithStuDao chaWithStuDao;
-    @Resource
-    private ChaWithStuService chaWithStuService;
 
 
     /**
@@ -35,32 +33,15 @@ public class ChaWithStuController {
         return ResponseEntity.ok(students);
     }
 
-    /**
-     * 添加通道id给到关联表的channel_id中
-     * @param chaWithStu
-     * @return
-     */
-    @PostMapping("/addChaWithStu")
-    public ResponseEntity<ChaWithStu> addChaWithStu(@RequestBody ChaWithStu chaWithStu) {
-        return ResponseEntity.ok(this.chaWithStuService.addChaWithStu(chaWithStu));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//    /**
+//     * 添加通道id给到关联表的channel_id中
+//     * @param chaWithStu
+//     * @return
+//     */
+//    @PostMapping("/addChaWithStu")
+//    public ResponseEntity<ChaWithStu> addChaWithStu(@RequestBody ChaWithStu chaWithStu) {
+//        return ResponseEntity.ok(this.chaWithStuService.addChaWithStu(chaWithStu));
+//    }
 
 }
 

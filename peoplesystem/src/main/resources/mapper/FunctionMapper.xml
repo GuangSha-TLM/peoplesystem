@@ -31,18 +31,15 @@
     </insert>
 
 
-    <insert id="saveData1" parameterType="com.tlm.people.entity.vo.FunctionExcelVo1">
-        <selectKey keyProperty="id" order="AFTER" resultType="long">
-            select last_insert_id() as id
-        </selectKey>
-        INSERT INTO
-        student
-        (stu_id,stu_name)
+    <insert id="saveData1" parameterType="java.util.List">
+        INSERT INTO student (stu_id, stu_name, channel_id)
         VALUES
-        <foreach collection="list" item="cachedDataList" separator=",">
-            (#{cachedDataList.stuId}, #{cachedDataList.stuName})
+        <foreach collection="list" item="item" separator=",">
+            (#{item.stuId}, #{item.stuName}, #{item.channelId})
         </foreach>
     </insert>
+
+
 
     <!-- 查询所有学生 -->
     <select id="findAll" resultType="com.tlm.people.entity.Stu">

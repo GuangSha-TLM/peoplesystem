@@ -26,15 +26,17 @@ public class Stu implements Serializable {
      * 状态（0：未选， 1：被选）
      */
     private Integer status;
+    private Long channelId;
 
     public Stu() {
     }
 
-    public Stu(Long id, Long stuId, String stuName, Integer status) {
+    public Stu(Long id, Long stuId, String stuName, Integer status, Long channelId) {
         this.id = id;
         this.stuId = stuId;
         this.stuName = stuName;
         this.status = status;
+        this.channelId = channelId;
     }
 
     public Long getId() {
@@ -69,6 +71,14 @@ public class Stu implements Serializable {
         this.status = status;
     }
 
+    public Long getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(Long channelId) {
+        this.channelId = channelId;
+    }
+
     @Override
     public String toString() {
         return "Stu{" +
@@ -76,6 +86,7 @@ public class Stu implements Serializable {
                 ", stuId=" + stuId +
                 ", stuName='" + stuName + '\'' +
                 ", status=" + status +
+                ", channelId=" + channelId +
                 '}';
     }
 }

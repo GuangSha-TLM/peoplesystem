@@ -46,16 +46,6 @@ public class FunctionServiceImpl implements FunctionService {
             throw new GuiguException("0x501","文件格式错误");
         }
     }
-    public List<Long> saveData1(List<FunctionExcelVo1> cachedDataList) {
-        List<Long> insertedIds = new ArrayList<>();
-        for (FunctionExcelVo1 data : cachedDataList) {
-            // 保存数据并获取插入的ID
-            // 假设这里使用了 functionMapper.insert(data) 方法，并返回插入的ID
-            Long insertedId = (long) functionMapper.saveData1(data);
-            insertedIds.add(insertedId);
-        }
-        return insertedIds;
-    }
 
     //上传文件1
     @Override
@@ -65,35 +55,24 @@ public class FunctionServiceImpl implements FunctionService {
             throw new GuiguException("0x500","文件为空");
         }
 
-        ExcelListener<FunctionExcelVo1> excelListener = new ExcelListener<>(functionMapper);
-
+        // 读取文件数据
+        List<FunctionExcelVo1> dataList;
         try {
-            EasyExcel.read(multipartFile.getInputStream(), FunctionExcelVo.class, excelListener)
-                    .sheet().doRead();
-            // 获取解析后的数据列表
-            List<FunctionExcelVo1> dataList = excelListener.getCachedDataList();
-
-            // 保存数据并获取主键ID
-            List<FunctionExcelVo1> functionExcelVoList1 = new ArrayList<>();
-            for (FunctionExcelVo1 functionExcelVo1 : dataList) {
-                functionExcelVoList1.add(functionExcelVo1);
-            }
-            functionMapper.saveData1(functionExcelVoList1);
-
-            // 获取主键ID并将其用于另一个操作
-            for (FunctionExcelVo1 functionExcelVo1 : functionExcelVoList1) {
-                long studentId = functionExcelVo1.getId();
-                ChaWithStu chaWithStu = new ChaWithStu(); // 构造 ChaWithStu 对象
-                chaWithStu.setStudentId(studentId); // 设置学生ID
-                chaWithStu.setChannelId(id);
-                // 添加 ChaWithStu
-                this.chaWithStuDao.addChaWithStu(chaWithStu);
-            }
+            dataList = EasyExcel.read(multipartFile.getInputStream()).head(FunctionExcelVo1.class).sheet().doReadSync();
         } catch (Exception e) {
             e.printStackTrace();
             throw new GuiguException("0x501","文件格式错误");
         }
+
+        // 为每条数据添加通道 ID
+        for (FunctionExcelVo1 functionExcelVo1 : dataList) {
+            functionExcelVo1.setChannelId(id);
+        }
+
+        // 保存数据到数据库
+        functionMapper.saveData1(dataList);
     }
+
 
     //文件导出（下载）
     @Override
