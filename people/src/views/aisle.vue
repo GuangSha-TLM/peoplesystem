@@ -37,14 +37,20 @@ export default {
         getAllChannel() {
             getAllChannel().then(res => {
                 this.buttonList = res.data.data
-                console.log(this.buttonList)
+                // console.log(this.buttonList)
             })
         },
         handleClick(value) {
             console.log(value);
-            chaWithStuByChaId(value).then((res=>{
-                console.log(res);
-            }))
+            // chaWithStuByChaId(value).then((res=>{
+            //     console.log(res);
+            //     if(res.status == 200){
+                    //给home组件传递数据
+                    // this.$bus.$emit('aisle',res.data)
+                    this.$router.push({ name:'home',params:{id:value} })
+                    // console.log(this.$router);
+                // }
+            // }))
         }
     },
 

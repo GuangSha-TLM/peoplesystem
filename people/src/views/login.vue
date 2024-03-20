@@ -70,7 +70,7 @@ export default {
               });
               
               setToken(res.data.data)
-              this.$router.push('/')
+              this.$router.push('/aisle')
             } else {
               this.$message({
                 showClose: true,

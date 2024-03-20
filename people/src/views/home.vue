@@ -68,6 +68,7 @@ import { resUpdateStatus, resGetStu, deleteByAll } from '@/api/user'
 import List from '@/components/List.vue';
 import { resUpload1, resDownload, stateAssignment } from '@/api/filefunction';
 import { addChaWithStu } from '@/api/chaWithStu'
+import {  chaWithStuByChaId } from '@/api/channel'
 
 
 export default {
@@ -87,7 +88,16 @@ export default {
   },
 
   mounted() {
-    this.getAllStu()
+    
+    // this.$bus.$on('aisle',(aisleData)=>{
+    //   console.log('我已经收到了数据aisle');
+    // })
+    if (!this.$route.params.id) {
+      this.$router.push({name:'aisle'})
+    }else{
+      this.getAllStu()
+    }
+    
   },
 
   methods: {
@@ -95,9 +105,11 @@ export default {
       this.multipleSelection = multipleSelection
     },
     getAllStu() {
-      resGetStu().then((res) => {
+      chaWithStuByChaId(this.$route.params.id).then((res) => {
+        console.log(res);
         if (res.data.code === '0x200') {
           this.list = res.data.data
+          // console.log(this.list);
         } else {
           this.$message({
             showClose: true,
@@ -113,14 +125,8 @@ export default {
 
       formData.append("multipartFile", this.fileList[0].raw)
       console.log(formData);
-      resUpload1(formData, 1).then((res) => {
+      resUpload1(formData,this.$route.params.id ).then((res) => {
         if (res.data.code === '0x200') {
-          var chaWithStu = {
-            channelId: 1
-          }
-          // addChaWithStu(chaWithStu).then((response) => {
-          //   console.log(response);
-          // })
           console.log(res);
           this.$message({
             showClose: true,
