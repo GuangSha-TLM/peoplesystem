@@ -126,7 +126,7 @@ stu_id = values(stu_id)status = values(status)createtime = values(createtime)upd
             </if>
         </set>
         where
-            stu_id = #{stuId}
+            id = #{id}
     </update>
 
     <!--通过主键删除-->
