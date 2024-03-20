@@ -1,8 +1,11 @@
 package com.tlm.people.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.tlm.people.dao.ChaWithStuDao;
 import com.tlm.people.entity.ChaWithStu;
 import com.tlm.people.entity.Stu;
+import com.tlm.people.entity.vo.ResponseVo;
 import com.tlm.people.service.ChaWithStuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +31,9 @@ public class ChaWithStuController {
      * @return
      */
     @GetMapping("/{channelId}/students")
-    public ResponseEntity<List<Stu>> getStudentsByChannelId(@PathVariable Long channelId) {
+    public String getStudentsByChannelId(@PathVariable Long channelId) {
         List<Stu> students = chaWithStuDao.getStudentsByChannelId(channelId);
-        return ResponseEntity.ok(students);
+        return JSONArray.toJSONString(new ResponseVo("下载成功",students,"0x200"));
     }
 
 //    /**
